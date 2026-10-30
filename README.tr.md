@@ -12,14 +12,11 @@ Albüm kapağı, canlı ilerleme çubuğu ve oynatma kontrolleri masaüstünde v
 
 [English](README.md) · **Türkçe**
 
-<img src="docs/images/preview.jpg" alt="Küçük, orta ve büyük boyutta Spotify Widget" width="100%">
+<img src="docs/images/demo.gif" alt="Küçük, orta ve büyük boyutta Spotify Widget" width="100%">
+
+<sub><a href="docs/demo.mp4">Yüksek kalitede izle</a></sub>
 
 </div>
-
-<!--
-Demo kaydı:
-<p align="center"><img src="docs/images/demo.gif" alt="Demo" width="720"></p>
--->
 
 ## Özellikler
 
@@ -165,7 +162,7 @@ Shared/                   Yardımcı uygulama ve widget'ın ortak kodu
 SpotifyWidget/            Yardımcı uygulama
 SpotifyWidgetExtension/   Widget eklentisi
 Tests/                    Birim testleri
-docs/images/              README görselleri
+docs/                     Demo videosu ve GIF
 ```
 
 ## Geliştirme

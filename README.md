@@ -12,14 +12,11 @@ Album art, live progress and playback controls on your desktop and in Notificati
 
 **English** · [Türkçe](README.tr.md)
 
-<img src="docs/images/preview.jpg" alt="Spotify Widget in small, medium and large sizes" width="100%">
+<img src="docs/images/demo.gif" alt="Spotify Widget in small, medium and large sizes" width="100%">
+
+<sub><a href="docs/demo.mp4">Watch in full quality</a></sub>
 
 </div>
-
-<!--
-Demo recording:
-<p align="center"><img src="docs/images/demo.gif" alt="Demo" width="720"></p>
--->
 
 ## Features
 
@@ -165,7 +162,7 @@ Shared/                   Code used by the helper and the widget
 SpotifyWidget/            Helper app
 SpotifyWidgetExtension/   Widget extension
 Tests/                    Unit tests
-docs/images/              README images
+docs/                     Demo video and GIF
 ```
 
 ## Development
