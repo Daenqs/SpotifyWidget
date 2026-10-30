@@ -5,7 +5,7 @@
 Spotify masaüstü uygulaması için yerel bir macOS widget'ı.<br>
 Albüm kapağı, canlı ilerleme çubuğu ve oynatma kontrolleri masaüstünde ve Bildirim Merkezi'nde.
 
-[![Sürüm](https://img.shields.io/badge/s%C3%BCr%C3%BCm-1.1-1DB954?style=flat-square)](#değişiklik-günlüğü)
+[![Sürüm](https://img.shields.io/badge/s%C3%BCr%C3%BCm-1.1-1DB954?style=flat-square)](https://github.com/<kullanici-adin>/SpotifyWidget/releases)
 [![macOS](https://img.shields.io/badge/macOS-14%2B-black?style=flat-square)](#gereksinimler)
 [![Diller](https://img.shields.io/badge/dil-16-8A2BE2?style=flat-square)](#diller)
 [![Lisans](https://img.shields.io/badge/lisans-MIT-lightgrey?style=flat-square)](LICENSE)
@@ -214,22 +214,6 @@ open ~/Applications/"Spotify Widget.app"
 
 macOS, önünde bir pencere varken masaüstü widget'larını soluklaştırır. Masaüstünde boş bir yere tıkla, renkler geri gelir.
 </details>
-
-## Değişiklik günlüğü
-
-### 1.1
-- Şarkı bilgisi doğrudan Spotify bildirimlerinden okunuyor, güncellemeler çok daha hızlı.
-- Geçen ve toplam süreli ilerleme çubuğu. Tıklayarak sarılabilir.
-- Azerice, Kazakça, Kırgızca, Özbekçe ve Türkmence dahil 16 dil.
-- Büyük boyutta albüm kapağı kırpılmadan gösteriliyor.
-- Birim testleri.
-
-### 1.0
-- İlk sürüm.
-
-## Sorumluluk reddi
-
-Bu proje Spotify ile bağlantılı değildir; Spotify tarafından onaylanmamış ya da desteklenmemiştir. Spotify, Spotify AB'nin ticari markasıdır.
 
 ## Lisans
 

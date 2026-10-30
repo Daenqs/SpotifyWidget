@@ -5,7 +5,7 @@
 A native macOS widget for the Spotify desktop app.<br>
 Album art, live progress and playback controls on your desktop and in Notification Center.
 
-[![Version](https://img.shields.io/badge/version-1.1-1DB954?style=flat-square)](#changelog)
+[![Version](https://img.shields.io/badge/version-1.1-1DB954?style=flat-square)](https://github.com/<your-username>/SpotifyWidget/releases)
 [![macOS](https://img.shields.io/badge/macOS-14%2B-black?style=flat-square)](#requirements)
 [![Languages](https://img.shields.io/badge/languages-16-8A2BE2?style=flat-square)](#languages)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square)](LICENSE)
@@ -214,22 +214,6 @@ open ~/Applications/"Spotify Widget.app"
 
 macOS dims desktop widgets while a window is in front of them. Click an empty part of the desktop and the colours come back.
 </details>
-
-## Changelog
-
-### 1.1
-- Track info is read directly from Spotify's notifications, so updates are much faster.
-- Progress bar with elapsed and total time. Click it to seek.
-- 16 languages, including Azerbaijani, Kazakh, Kyrgyz, Uzbek and Turkmen.
-- Album art is shown uncropped in the large size.
-- Unit tests.
-
-### 1.0
-- First release.
-
-## Disclaimer
-
-This project is not affiliated with, endorsed by or sponsored by Spotify. Spotify is a trademark of Spotify AB.
 
 ## License
 
