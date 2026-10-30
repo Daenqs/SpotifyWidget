@@ -50,7 +50,7 @@ Uygulamayı kaynak koddan bir kez derliyorsun. Yaklaşık iki dakika sürer; Xco
 ### 1. Depoyu indir
 
 ```sh
-git clone https://github.com/<kullanici-adin>/SpotifyWidget.git
+git clone https://github.com/Daenqs/SpotifyWidget.git
 cd SpotifyWidget
 ```
 

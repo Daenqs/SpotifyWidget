@@ -50,7 +50,7 @@ You build the app once from source. It takes about two minutes and needs Xcode a
 ### 1. Clone the repository
 
 ```sh
-git clone https://github.com/<your-username>/SpotifyWidget.git
+git clone https://github.com/Daenqs/SpotifyWidget.git
 cd SpotifyWidget
 ```
 
