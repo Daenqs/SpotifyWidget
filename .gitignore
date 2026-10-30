@@ -3,5 +3,5 @@ build/
 DerivedData/
 xcuserdata/
 *.xcuserstate
-Config/Local.xcconfig
-App/AppIcon.icns
+Configs/Local.xcconfig
+SpotifyWidget/AppIcon.icns

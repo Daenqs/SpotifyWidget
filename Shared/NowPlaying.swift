@@ -25,43 +25,15 @@ struct NowPlaying: Codable, Equatable {
         return copy
     }
 
+    func seeked(to fraction: Double, at now: Date = .now) -> NowPlaying {
+        var copy = self
+        copy.position = fraction * duration
+        copy.updatedAt = now
+        return copy
+    }
+
     static let placeholder = NowPlaying(
         title: "Şarkı Adı", artist: "Sanatçı", album: "Albüm",
         isPlaying: true, duration: 210, position: 70, updatedAt: .now
     )
-}
-
-enum SharedStore {
-    static let groupID = Bundle.main.object(forInfoDictionaryKey: "AppGroupID") as! String
-
-    private static var container: URL {
-        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupID)!
-    }
-    private static var stateURL: URL { container.appending(path: "now-playing.json") }
-    static var artworkURL: URL { container.appending(path: "artwork.jpg") }
-
-    static func load() -> NowPlaying? {
-        guard let data = try? Data(contentsOf: stateURL) else { return nil }
-        return try? JSONDecoder().decode(NowPlaying.self, from: data)
-    }
-
-    static func save(_ state: NowPlaying?) {
-        guard let state else {
-            try? FileManager.default.removeItem(at: stateURL)
-            return
-        }
-        try? JSONEncoder().encode(state).write(to: stateURL, options: .atomic)
-    }
-}
-
-enum Command: String, CaseIterable {
-    case playPause, next, previous, seek
-
-    var notification: Notification.Name { .init("spotifywidget.\(rawValue)") }
-
-    func post(_ argument: String? = nil) {
-        DistributedNotificationCenter.default().postNotificationName(
-            notification, object: argument, userInfo: nil, deliverImmediately: true
-        )
-    }
 }

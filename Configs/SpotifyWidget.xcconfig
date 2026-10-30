@@ -1,0 +1,10 @@
+PRODUCT_NAME = SpotifyWidget
+PRODUCT_BUNDLE_IDENTIFIER = $(BUNDLE_ID_PREFIX).spotifyhelper
+
+INFOPLIST_FILE = SpotifyWidget/Info.plist
+GENERATE_INFOPLIST_FILE = NO
+CODE_SIGN_ENTITLEMENTS = SpotifyWidget/SpotifyWidget.entitlements
+ENABLE_HARDENED_RUNTIME = YES
+
+COMBINE_HIDPI_IMAGES = YES
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks

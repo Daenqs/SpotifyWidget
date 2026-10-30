@@ -1,0 +1,12 @@
+PRODUCT_NAME = SpotifyWidgetExtension
+PRODUCT_BUNDLE_IDENTIFIER = $(BUNDLE_ID_PREFIX).spotifyhelper.widget
+
+INFOPLIST_FILE = SpotifyWidgetExtension/Info.plist
+GENERATE_INFOPLIST_FILE = YES
+INFOPLIST_KEY_CFBundleDisplayName = Spotify
+CODE_SIGN_ENTITLEMENTS = SpotifyWidgetExtension/SpotifyWidgetExtension.entitlements
+ENABLE_APP_SANDBOX = YES
+ENABLE_HARDENED_RUNTIME = YES
+
+SKIP_INSTALL = YES
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks
