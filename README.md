@@ -2,13 +2,11 @@
 
 # Spotify Widget
 
-**A native macOS desktop widget for the Spotify app.**
-Album art, live progress, playback controls — right on your desktop and in Notification Center.
+A native macOS widget for the Spotify desktop app.<br>
+Album art, live progress and playback controls on your desktop and in Notification Center.
 
 [![Version](https://img.shields.io/badge/version-1.1-1DB954?style=flat-square)](#changelog)
-[![macOS](https://img.shields.io/badge/macOS-14%2B-000000?style=flat-square&logo=apple&logoColor=white)](#requirements)
-[![Swift](https://img.shields.io/badge/Swift-5-F05138?style=flat-square&logo=swift&logoColor=white)](#requirements)
-[![Xcode](https://img.shields.io/badge/Xcode-16%2B-147EFB?style=flat-square&logo=xcode&logoColor=white)](#requirements)
+[![macOS](https://img.shields.io/badge/macOS-14%2B-black?style=flat-square)](#requirements)
 [![Languages](https://img.shields.io/badge/languages-16-8A2BE2?style=flat-square)](#languages)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square)](LICENSE)
 
@@ -19,68 +17,69 @@ Album art, live progress, playback controls — right on your desktop and in Not
 </div>
 
 <!--
-Demo recording goes here once it's added:
+Demo recording:
 <p align="center"><img src="docs/images/demo.gif" alt="Demo" width="720"></p>
 -->
 
 ## Features
 
-|  |  |
-|---|---|
-| 🎨 **Native look** | Blurred album-art background, system fonts and materials, light & dark mode |
-| 📐 **Three sizes** | Small, medium and large — drag them anywhere on the desktop or into Notification Center |
-| ⏯️ **Controls** | Play / pause, previous and next track straight from the widget |
-| ⏱️ **Live progress** | Progress bar with elapsed and total time that moves while the song plays |
-| 🎯 **Seek** | Click anywhere on the progress bar to jump to that point |
-| 🌍 **16 languages** | Follows your Mac's language automatically |
-| ⚡ **Lightweight** | ~0% CPU when idle, ~26 MB of memory, no polling |
-| 🔒 **Private** | Everything stays on your Mac — no accounts, no analytics, no Spotify API keys |
+- **Three sizes.** Small, medium and large, on the desktop or in Notification Center.
+- **Playback controls.** Play, pause, previous and next without switching to Spotify.
+- **Live progress.** The bar and elapsed time move while the song plays.
+- **Click to seek.** Click anywhere on the progress bar to jump there.
+- **Feels native.** Blurred album-art background and system fonts. Album art is never cropped.
+- **16 languages.** Follows your Mac's language automatically.
+- **Lightweight.** No polling. It only does work when Spotify reports a change.
+- **Private.** Nothing leaves your Mac except artwork requests to Spotify's image servers. No accounts, analytics or API keys.
 
 ## Requirements
 
-| | Minimum | Tested on |
+| | Minimum | Tested with |
 |---|---|---|
-| **macOS** | 14 Sonoma (interactive widgets) | macOS 27.2 |
-| **Xcode** | 16 (folder-synced project format) | Xcode 27.2 |
-| **Spotify** | Desktop app — the web player is not supported | 1.3.6 |
-| **Apple ID** | Free account signed in to Xcode | — |
+| macOS | 14 Sonoma | 27.2 |
+| Xcode (to build) | 16 | 27.2 |
+| Spotify | Desktop app | 1.3.6 |
 
-Apple Silicon and Intel Macs are both supported.
+- The Spotify **web player is not supported**. The widget talks to the desktop app.
+- Builds are universal (Apple silicon and Intel). It has only been tested on Apple silicon.
 
 ## Installation
 
-> There's no prebuilt download yet. Apps signed with a free Apple ID can't be notarized, so you build it yourself — it takes about two minutes.
+There is no prebuilt download yet, so you need to build the app once. It takes about two minutes and only needs a free Apple ID.
 
-**1. Clone**
+### 1. Clone the repository
 
 ```sh
 git clone https://github.com/<your-username>/SpotifyWidget.git
 cd SpotifyWidget
 ```
 
-**2. Add your signing details**
+### 2. Add your signing details
+
+Sign in to Xcode with your Apple ID (Xcode → Settings → Accounts). Then create your local config:
 
 ```sh
 cp Configs/Local.xcconfig.example Configs/Local.xcconfig
 ```
 
-Open `Configs/Local.xcconfig` and fill in:
+Open `Configs/Local.xcconfig` and set both values:
 
-| Key | Where to find it |
+| Key | Value |
 |---|---|
-| `DEVELOPMENT_TEAM` | Xcode → Settings → Accounts → select your team → *Team ID* |
-| `BUNDLE_ID_PREFIX` | Anything unique, e.g. `com.yourname` |
+| `DEVELOPMENT_TEAM` | Your Team ID. Xcode → Settings → Accounts → select your team. |
+| `BUNDLE_ID_PREFIX` | Anything unique to you, e.g. `com.yourname` |
 
-**3. Build**
+`Local.xcconfig` is git-ignored, so your details never end up in a commit.
+
+### 3. Build
 
 ```sh
 xcodebuild -project SpotifyWidget.xcodeproj -scheme SpotifyWidget \
-  -configuration Release -derivedDataPath build -allowProvisioningUpdates build
+  -configuration Release -destination 'generic/platform=macOS' \
+  -derivedDataPath build -allowProvisioningUpdates build
 ```
 
-Or open `SpotifyWidget.xcodeproj` in Xcode and press **⌘B** with the *Release* configuration.
-
-**4. Install and launch**
+### 4. Install and launch
 
 ```sh
 mkdir -p ~/Applications
@@ -88,131 +87,149 @@ cp -R "build/Build/Products/Release/Spotify Widget.app" ~/Applications/
 open ~/Applications/"Spotify Widget.app"
 ```
 
-The app has no window — it runs quietly in the background and adds itself to your login items.
+The app has no window or Dock icon. It runs in the background and adds itself to your login items.
 
-**5. Allow access**
+### 5. Allow access
 
-When macOS asks whether *Spotify Widget* may control *Spotify*, click **Allow**.
+macOS asks whether *Spotify Widget* may control *Spotify*. Click **Allow**.
 
-**6. Add the widget**
+### 6. Add the widget
 
-Right-click the desktop → **Edit Widgets** → search for **Spotify** → drag the size you want onto the desktop.
+Right-click the desktop and choose **Edit Widgets**. Search for **Spotify** and drag a size onto the desktop.
+
+## Uninstall
+
+1. Remove the widget from the desktop.
+2. Quit the helper and delete the app:
+   ```sh
+   pkill -x "Spotify Widget"
+   rm -rf ~/Applications/"Spotify Widget.app"
+   ```
+3. Remove *Spotify Widget* from System Settings → General → Login Items, if it is still listed.
 
 ## How it works
 
-Widgets run in a sandbox and can't talk to other apps, so the project is split in two:
+Widgets run in a sandbox and cannot control other apps. The project therefore has two parts.
 
 ```mermaid
 flowchart LR
-    S[Spotify] -- PlaybackStateChanged<br/>notification --> H[Spotify Widget<br/>helper app]
-    H -- state + artwork --> G[(App Group<br/>container)]
-    G --> W[Widget extension]
-    W -- button tap<br/>App Intent --> N{{Distributed<br/>notification}}
-    N --> H
+    S[Spotify] -- playback notification --> H[Helper app]
+    H -- track info and artwork --> G[(Shared App Group)]
+    G --> W[Widget]
+    W -- button press --> H
     H -- AppleScript --> S
 ```
 
-- **Helper app** (`SpotifyWidget/`) listens to Spotify's `com.spotify.client.PlaybackStateChanged` notification. Track info comes straight from the notification payload; AppleScript is only used for artwork URLs and playback commands. Artwork is downloaded once per track, cached, and a small blurred background is pre-rendered so the widget never has to blur anything itself.
-- **Widget extension** (`SpotifyWidgetExtension/`) reads the shared state and renders it. The progress bar is driven by precomputed timeline entries, so it moves without waking anything up. Buttons are App Intents that post a distributed notification back to the helper.
+**Helper app** (`SpotifyWidget/`)
+- Listens to Spotify's `com.spotify.client.PlaybackStateChanged` notification. Track info is read straight from the notification.
+- Uses AppleScript only for playback commands and for the artwork URL when the track changes.
+- Downloads each cover once, caches it, and pre-renders a small blurred background so the widget never has to blur anything.
+
+**Widget extension** (`SpotifyWidgetExtension/`)
+- Reads the shared state and draws it.
+- The progress bar moves through precomputed timeline entries, which do not count against the widget refresh budget.
+- Buttons are App Intents that send a message back to the helper.
 
 ### Performance
 
-Measured on an Apple Silicon Mac with the Release build:
+Release build on an Apple silicon Mac:
 
-| Action | Time |
+| | |
 |---|---|
 | Reading Spotify's state | 1–12 ms |
-| Play / pause | ~21 ms |
-| Next track, including artwork download | ~110 ms |
-| Idle CPU | 0% |
-| Memory (helper) | ~26 MB |
+| Play / pause | about 20 ms |
+| Next track, including artwork download | about 110 ms |
+| CPU when idle | 0% |
+| Memory (helper app) | about 26 MB |
 
 ## Languages
 
-The widget follows your Mac's language (System Settings → General → Language & Region).
+The widget uses your Mac's language from System Settings → General → Language & Region. If your language is not listed, the widget uses English.
 
 | | | | |
 |---|---|---|---|
-| 🇬🇧 English | 🇹🇷 Türkçe | 🇦🇿 Azərbaycanca | 🇰🇿 Қазақша |
-| 🇰🇬 Кыргызча | 🇺🇿 Oʻzbekcha | 🇹🇲 Türkmençe | 🇩🇪 Deutsch |
-| 🇪🇸 Español | 🇫🇷 Français | 🇮🇹 Italiano | 🇧🇷 Português (Brasil) |
-| 🇷🇺 Русский | 🇯🇵 日本語 | 🇰🇷 한국어 | 🇨🇳 简体中文 |
+| English | Türkçe | Azərbaycanca | Қазақша |
+| Кыргызча | Oʻzbekcha | Türkmençe | Deutsch |
+| Español | Français | Italiano | Português (Brasil) |
+| Русский | 日本語 | 한국어 | 简体中文 |
 
-Translations live in [`SpotifyWidgetExtension/Localizable.xcstrings`](SpotifyWidgetExtension/Localizable.xcstrings) and [`SpotifyWidget/InfoPlist.xcstrings`](SpotifyWidget/InfoPlist.xcstrings). Corrections and new languages are very welcome.
+Translations live in [`SpotifyWidgetExtension/Localizable.xcstrings`](SpotifyWidgetExtension/Localizable.xcstrings) and [`SpotifyWidget/InfoPlist.xcstrings`](SpotifyWidget/InfoPlist.xcstrings). Corrections and new languages are welcome.
 
 ## Project structure
 
 ```
-SpotifyWidget/
-├── Configs/                    Build settings (.xcconfig)
-│   ├── Base.xcconfig           Shared settings, version, Debug/Release
-│   ├── SpotifyWidget.xcconfig
-│   ├── SpotifyWidgetExtension.xcconfig
-│   ├── SpotifyWidgetTests.xcconfig
-│   └── Local.xcconfig.example  Your team ID and bundle prefix
-├── Shared/                     Code used by both targets
-├── SpotifyWidget/              Background helper app
-├── SpotifyWidgetExtension/     WidgetKit extension
-│   └── Views/
-├── Tests/                      Unit tests (Swift Testing)
-└── docs/images/                README images
+Configs/                  Build settings
+  Base.xcconfig           Version and shared settings
+  Local.xcconfig.example  Template for your Team ID and bundle prefix
+Shared/                   Code used by the helper and the widget
+SpotifyWidget/            Helper app
+SpotifyWidgetExtension/   Widget extension
+Tests/                    Unit tests
+docs/images/              README images
 ```
 
-## Tests
+## Development
+
+Run the tests:
 
 ```sh
 xcodebuild test -project SpotifyWidget.xcodeproj -scheme SpotifyWidgetTests -destination 'platform=macOS'
 ```
 
+Watch the helper's timing logs while using the widget:
+
+```sh
+log stream --level debug --predicate 'subsystem == "spotifywidget"'
+```
+
+To use your own app icon, put an `AppIcon.icns` and/or a compiled `Assets.car` with an `AppIcon` entry in `SpotifyWidget/`. Both files are git-ignored.
+
 ## Troubleshooting
 
 <details>
-<summary><b>The widget doesn't show up in the gallery</b></summary>
+<summary>The widget does not appear in the widget gallery</summary>
 
-Make sure the app is running (`pgrep -l "Spotify Widget"`) and launched from `~/Applications` or `/Applications`. If the gallery still shows an old name or icon, log out and back in — the widget gallery caches app info.
+Check that the helper is running with `pgrep -l "Spotify Widget"` and that the app is in `~/Applications` or `/Applications`. If the gallery shows an old name or icon, log out and back in. The gallery caches app details.
 </details>
 
 <details>
-<summary><b>The widget says nothing is playing</b></summary>
+<summary>The widget says nothing is playing</summary>
 
-Start playback in the Spotify desktop app. If it still doesn't update, check System Settings → Privacy & Security → Automation and make sure *Spotify Widget* is allowed to control *Spotify*.
+Start a song in the Spotify desktop app. If the widget still does not update, open System Settings → Privacy & Security → Automation and check that *Spotify Widget* may control *Spotify*.
 </details>
 
 <details>
-<summary><b>I clicked "Don't Allow" on the permission prompt</b></summary>
+<summary>I clicked "Don't Allow" on the permission prompt</summary>
 
-Reset the permission and relaunch the app:
+Reset the permission, then open the app again:
 
 ```sh
 tccutil reset AppleEvents <your-bundle-prefix>.spotifyhelper
+open ~/Applications/"Spotify Widget.app"
 ```
 </details>
 
 <details>
-<summary><b>The widget looks grey / without artwork</b></summary>
+<summary>The widget turns grey</summary>
 
-macOS dims desktop widgets while an app window is in front of them. Click an empty part of the desktop and the full-colour version comes back.
+macOS dims desktop widgets while a window is in front of them. Click an empty part of the desktop and the colours come back.
 </details>
-
-## Custom icon
-
-Put an `Assets.car` (compiled icon with an `AppIcon` entry) and/or an `AppIcon.icns` in `SpotifyWidget/`, and they'll be picked up automatically. Both are git-ignored.
 
 ## Changelog
 
-**1.1**
-- Track info read directly from Spotify's notifications — up to 10× faster updates
-- Click-to-seek progress bar with elapsed and total time
-- 16 languages, including Azerbaijani, Kazakh, Kyrgyz, Uzbek and Turkmen
-- Uncropped square artwork in the large size
-- Unit tests
+### 1.1
+- Track info is read directly from Spotify's notifications, so updates are much faster.
+- Progress bar with elapsed and total time. Click it to seek.
+- 16 languages, including Azerbaijani, Kazakh, Kyrgyz, Uzbek and Turkmen.
+- Album art is shown uncropped in the large size.
+- Unit tests.
 
-**1.0**
-- First release
+### 1.0
+- First release.
 
 ## Disclaimer
 
-This project is not affiliated with, endorsed by, or sponsored by Spotify. Spotify is a trademark of Spotify AB.
+This project is not affiliated with, endorsed by or sponsored by Spotify. Spotify is a trademark of Spotify AB.
 
 ## License
 

@@ -2,13 +2,11 @@
 
 # Spotify Widget
 
-**Spotify uygulaması için yerel bir macOS masaüstü widget'ı.**
-Albüm kapağı, canlı ilerleme çubuğu ve oynatma kontrolleri — masaüstünde ve Bildirim Merkezi'nde.
+Spotify masaüstü uygulaması için yerel bir macOS widget'ı.<br>
+Albüm kapağı, canlı ilerleme çubuğu ve oynatma kontrolleri masaüstünde ve Bildirim Merkezi'nde.
 
 [![Sürüm](https://img.shields.io/badge/s%C3%BCr%C3%BCm-1.1-1DB954?style=flat-square)](#değişiklik-günlüğü)
-[![macOS](https://img.shields.io/badge/macOS-14%2B-000000?style=flat-square&logo=apple&logoColor=white)](#gereksinimler)
-[![Swift](https://img.shields.io/badge/Swift-5-F05138?style=flat-square&logo=swift&logoColor=white)](#gereksinimler)
-[![Xcode](https://img.shields.io/badge/Xcode-16%2B-147EFB?style=flat-square&logo=xcode&logoColor=white)](#gereksinimler)
+[![macOS](https://img.shields.io/badge/macOS-14%2B-black?style=flat-square)](#gereksinimler)
 [![Diller](https://img.shields.io/badge/dil-16-8A2BE2?style=flat-square)](#diller)
 [![Lisans](https://img.shields.io/badge/lisans-MIT-lightgrey?style=flat-square)](LICENSE)
 
@@ -19,68 +17,69 @@ Albüm kapağı, canlı ilerleme çubuğu ve oynatma kontrolleri — masaüstün
 </div>
 
 <!--
-Demo kaydı eklenince burada görünecek:
+Demo kaydı:
 <p align="center"><img src="docs/images/demo.gif" alt="Demo" width="720"></p>
 -->
 
 ## Özellikler
 
-|  |  |
-|---|---|
-| 🎨 **Yerel görünüm** | Bulanık kapak arka planı, sistem yazı tipleri, açık ve koyu tema |
-| 📐 **Üç boyut** | Küçük, orta ve büyük — masaüstüne ya da Bildirim Merkezi'ne sürükle |
-| ⏯️ **Kontroller** | Oynat / duraklat, önceki ve sonraki şarkı doğrudan widget'tan |
-| ⏱️ **Canlı ilerleme** | Şarkı çaldıkça ilerleyen çubuk, geçen ve toplam süre |
-| 🎯 **Sarma** | Çubukta tıkladığın yere atlar |
-| 🌍 **16 dil** | Mac'inin diline otomatik uyar |
-| ⚡ **Hafif** | Boştayken ~%0 CPU, ~26 MB bellek, sürekli sorgulama yok |
-| 🔒 **Gizli** | Her şey Mac'inde kalır — hesap yok, analiz yok, Spotify API anahtarı yok |
+- **Üç boyut.** Küçük, orta ve büyük; masaüstünde ya da Bildirim Merkezi'nde.
+- **Oynatma kontrolleri.** Spotify'a geçmeden oynat, duraklat, önceki ve sonraki şarkı.
+- **Canlı ilerleme.** Şarkı çaldıkça çubuk ve geçen süre ilerler.
+- **Tıklayarak sarma.** Çubukta tıkladığın yere atlar.
+- **Yerel görünüm.** Bulanık kapak arka planı ve sistem yazı tipleri. Albüm kapağı hiçbir zaman kırpılmaz.
+- **16 dil.** Mac'inin diline kendiliğinden uyar.
+- **Hafif.** Sürekli sorgulama yapmaz. Yalnızca Spotify bir değişiklik bildirdiğinde çalışır.
+- **Gizli.** Spotify'ın görsel sunucularına giden kapak istekleri dışında Mac'inden hiçbir şey çıkmaz. Hesap, analiz ya da API anahtarı yok.
 
 ## Gereksinimler
 
 | | En düşük | Test edilen |
 |---|---|---|
-| **macOS** | 14 Sonoma (etkileşimli widget'lar) | macOS 27.2 |
-| **Xcode** | 16 (klasör senkronlu proje biçimi) | Xcode 27.2 |
-| **Spotify** | Masaüstü uygulaması — web oynatıcı desteklenmez | 1.3.6 |
-| **Apple ID** | Xcode'da oturum açılmış ücretsiz hesap | — |
+| macOS | 14 Sonoma | 27.2 |
+| Xcode (derlemek için) | 16 | 27.2 |
+| Spotify | Masaüstü uygulaması | 1.3.6 |
 
-Apple Silicon ve Intel Mac'lerin ikisi de desteklenir.
+- Spotify **web oynatıcısı desteklenmez**. Widget masaüstü uygulamasıyla konuşur.
+- Derlenen uygulama universal'dır (Apple silicon ve Intel). Yalnızca Apple silicon'da test edildi.
 
 ## Kurulum
 
-> Henüz hazır indirme yok. Ücretsiz Apple ID ile imzalanan uygulamalar Apple onayından geçemediği için kendin derliyorsun — yaklaşık iki dakika sürer.
+Henüz hazır indirme yok, bu yüzden uygulamayı bir kez derlemen gerekiyor. Yaklaşık iki dakika sürer ve sadece ücretsiz bir Apple ID gerekir.
 
-**1. Depoyu indir**
+### 1. Depoyu indir
 
 ```sh
 git clone https://github.com/<kullanici-adin>/SpotifyWidget.git
 cd SpotifyWidget
 ```
 
-**2. İmza bilgilerini ekle**
+### 2. İmza bilgilerini ekle
+
+Xcode'da Apple ID ile oturum aç (Xcode → Settings → Accounts). Sonra yerel ayar dosyasını oluştur:
 
 ```sh
 cp Configs/Local.xcconfig.example Configs/Local.xcconfig
 ```
 
-`Configs/Local.xcconfig` dosyasını açıp doldur:
+`Configs/Local.xcconfig` dosyasını açıp iki değeri de doldur:
 
-| Anahtar | Nerede bulunur |
+| Anahtar | Değer |
 |---|---|
-| `DEVELOPMENT_TEAM` | Xcode → Settings → Accounts → takımını seç → *Team ID* |
+| `DEVELOPMENT_TEAM` | Team ID'n. Xcode → Settings → Accounts → takımını seç. |
 | `BUNDLE_ID_PREFIX` | Sana özgü herhangi bir şey, ör. `com.adin` |
 
-**3. Derle**
+`Local.xcconfig` git'e eklenmez, bilgilerin hiçbir commit'e girmez.
+
+### 3. Derle
 
 ```sh
 xcodebuild -project SpotifyWidget.xcodeproj -scheme SpotifyWidget \
-  -configuration Release -derivedDataPath build -allowProvisioningUpdates build
+  -configuration Release -destination 'generic/platform=macOS' \
+  -derivedDataPath build -allowProvisioningUpdates build
 ```
 
-Ya da `SpotifyWidget.xcodeproj` dosyasını Xcode'da açıp *Release* ayarıyla **⌘B**'ye bas.
-
-**4. Kur ve başlat**
+### 4. Kur ve başlat
 
 ```sh
 mkdir -p ~/Applications
@@ -88,131 +87,149 @@ cp -R "build/Build/Products/Release/Spotify Widget.app" ~/Applications/
 open ~/Applications/"Spotify Widget.app"
 ```
 
-Uygulamanın penceresi yok — arka planda sessizce çalışır ve kendini giriş öğelerine ekler.
+Uygulamanın penceresi ve Dock simgesi yok. Arka planda çalışır ve kendini giriş öğelerine ekler.
 
-**5. İzin ver**
+### 5. İzin ver
 
-macOS *Spotify Widget*'ın *Spotify*'ı denetlemesine izin verip vermeyeceğini sorduğunda **İzin Ver**'e tıkla.
+macOS, *Spotify Widget*'ın *Spotify*'ı denetlemesine izin verip vermeyeceğini sorar. **İzin Ver**'e tıkla.
 
-**6. Widget'ı ekle**
+### 6. Widget'ı ekle
 
-Masaüstüne sağ tıkla → **Widget'ları Düzenle** → **Spotify** ara → istediğin boyutu masaüstüne sürükle.
+Masaüstüne sağ tıkla ve **Widget'ları Düzenle**'yi seç. **Spotify** ara ve bir boyutu masaüstüne sürükle.
+
+## Kaldırma
+
+1. Widget'ı masaüstünden kaldır.
+2. Yardımcı uygulamayı kapat ve sil:
+   ```sh
+   pkill -x "Spotify Widget"
+   rm -rf ~/Applications/"Spotify Widget.app"
+   ```
+3. Hâlâ listede görünüyorsa *Spotify Widget*'ı Sistem Ayarları → Genel → Giriş Öğeleri'nden kaldır.
 
 ## Nasıl çalışır
 
-Widget'lar sandbox içinde çalışır ve diğer uygulamalarla konuşamaz. Bu yüzden proje iki parçadan oluşur:
+Widget'lar sandbox içinde çalışır ve diğer uygulamaları denetleyemez. Bu yüzden proje iki parçadan oluşur.
 
 ```mermaid
 flowchart LR
-    S[Spotify] -- PlaybackStateChanged<br/>bildirimi --> H[Spotify Widget<br/>yardımcı uygulama]
-    H -- durum + kapak --> G[(App Group<br/>klasörü)]
-    G --> W[Widget eklentisi]
-    W -- buton<br/>App Intent --> N{{Dağıtık<br/>bildirim}}
-    N --> H
+    S[Spotify] -- oynatma bildirimi --> H[Yardımcı uygulama]
+    H -- şarkı bilgisi ve kapak --> G[(Ortak App Group)]
+    G --> W[Widget]
+    W -- butona basma --> H
     H -- AppleScript --> S
 ```
 
-- **Yardımcı uygulama** (`SpotifyWidget/`) Spotify'ın `com.spotify.client.PlaybackStateChanged` bildirimini dinler. Şarkı bilgisi doğrudan bildirimden okunur; AppleScript yalnızca kapak adresi ve oynatma komutları için kullanılır. Kapak şarkı başına bir kez indirilir, önbelleğe alınır ve küçük bulanık arka plan önceden hazırlanır.
-- **Widget eklentisi** (`SpotifyWidgetExtension/`) ortak durumu okuyup çizer. İlerleme çubuğu önceden hesaplanmış zaman çizelgesiyle ilerler, hiçbir şeyi uyandırmaz. Butonlar, yardımcı uygulamaya bildirim gönderen App Intent'lerdir.
+**Yardımcı uygulama** (`SpotifyWidget/`)
+- Spotify'ın `com.spotify.client.PlaybackStateChanged` bildirimini dinler. Şarkı bilgisi doğrudan bildirimden okunur.
+- AppleScript'i yalnızca oynatma komutları için ve şarkı değişince kapak adresini almak için kullanır.
+- Her kapağı bir kez indirir, önbelleğe alır ve küçük bulanık arka planı önceden hazırlar. Widget'ın hiçbir şeyi bulanıklaştırması gerekmez.
+
+**Widget eklentisi** (`SpotifyWidgetExtension/`)
+- Ortak durumu okur ve çizer.
+- İlerleme çubuğu önceden hesaplanmış zaman çizelgesi kayıtlarıyla ilerler. Bunlar widget yenileme kotasından düşmez.
+- Butonlar, yardımcı uygulamaya mesaj gönderen App Intent'lerdir.
 
 ### Performans
 
-Apple Silicon Mac'te Release sürümüyle ölçüldü:
+Apple silicon Mac'te Release sürümüyle ölçüldü:
 
-| İşlem | Süre |
+| | |
 |---|---|
 | Spotify durumunu okuma | 1–12 ms |
-| Oynat / duraklat | ~21 ms |
-| Sonraki şarkı (kapak indirme dahil) | ~110 ms |
+| Oynat / duraklat | yaklaşık 20 ms |
+| Sonraki şarkı, kapak indirme dahil | yaklaşık 110 ms |
 | Boştayken CPU | %0 |
-| Bellek (yardımcı uygulama) | ~26 MB |
+| Bellek (yardımcı uygulama) | yaklaşık 26 MB |
 
 ## Diller
 
-Widget Mac'inin diline uyar (Sistem Ayarları → Genel → Dil ve Bölge).
+Widget, Sistem Ayarları → Genel → Dil ve Bölge'deki dili kullanır. Dilin listede yoksa İngilizce görünür.
 
 | | | | |
 |---|---|---|---|
-| 🇬🇧 English | 🇹🇷 Türkçe | 🇦🇿 Azərbaycanca | 🇰🇿 Қазақша |
-| 🇰🇬 Кыргызча | 🇺🇿 Oʻzbekcha | 🇹🇲 Türkmençe | 🇩🇪 Deutsch |
-| 🇪🇸 Español | 🇫🇷 Français | 🇮🇹 Italiano | 🇧🇷 Português (Brasil) |
-| 🇷🇺 Русский | 🇯🇵 日本語 | 🇰🇷 한국어 | 🇨🇳 简体中文 |
+| English | Türkçe | Azərbaycanca | Қазақша |
+| Кыргызча | Oʻzbekcha | Türkmençe | Deutsch |
+| Español | Français | Italiano | Português (Brasil) |
+| Русский | 日本語 | 한국어 | 简体中文 |
 
 Çeviriler [`SpotifyWidgetExtension/Localizable.xcstrings`](SpotifyWidgetExtension/Localizable.xcstrings) ve [`SpotifyWidget/InfoPlist.xcstrings`](SpotifyWidget/InfoPlist.xcstrings) dosyalarında. Düzeltmeler ve yeni diller memnuniyetle karşılanır.
 
 ## Proje yapısı
 
 ```
-SpotifyWidget/
-├── Configs/                    Derleme ayarları (.xcconfig)
-│   ├── Base.xcconfig           Ortak ayarlar, sürüm, Debug/Release
-│   ├── SpotifyWidget.xcconfig
-│   ├── SpotifyWidgetExtension.xcconfig
-│   ├── SpotifyWidgetTests.xcconfig
-│   └── Local.xcconfig.example  Takım kimliğin ve bundle öneki
-├── Shared/                     İki hedefin ortak kodu
-├── SpotifyWidget/              Arka plan yardımcı uygulaması
-├── SpotifyWidgetExtension/     WidgetKit eklentisi
-│   └── Views/
-├── Tests/                      Birim testleri (Swift Testing)
-└── docs/images/                README görselleri
+Configs/                  Derleme ayarları
+  Base.xcconfig           Sürüm ve ortak ayarlar
+  Local.xcconfig.example  Team ID ve bundle öneki şablonu
+Shared/                   Yardımcı uygulama ve widget'ın ortak kodu
+SpotifyWidget/            Yardımcı uygulama
+SpotifyWidgetExtension/   Widget eklentisi
+Tests/                    Birim testleri
+docs/images/              README görselleri
 ```
 
-## Testler
+## Geliştirme
+
+Testleri çalıştır:
 
 ```sh
 xcodebuild test -project SpotifyWidget.xcodeproj -scheme SpotifyWidgetTests -destination 'platform=macOS'
 ```
 
+Widget'ı kullanırken yardımcı uygulamanın süre loglarını izle:
+
+```sh
+log stream --level debug --predicate 'subsystem == "spotifywidget"'
+```
+
+Kendi uygulama ikonunu kullanmak için `SpotifyWidget/` klasörüne bir `AppIcon.icns` ve/veya içinde `AppIcon` bulunan derlenmiş bir `Assets.car` koy. İki dosya da git'e eklenmez.
+
 ## Sorun giderme
 
 <details>
-<summary><b>Widget galeride görünmüyor</b></summary>
+<summary>Widget galeride görünmüyor</summary>
 
-Uygulamanın çalıştığından (`pgrep -l "Spotify Widget"`) ve `~/Applications` ya da `/Applications` içinden açıldığından emin ol. Galeri hâlâ eski ad ya da ikonu gösteriyorsa oturumu kapatıp aç — galeri uygulama bilgilerini önbellekte tutar.
+Yardımcı uygulamanın çalıştığını `pgrep -l "Spotify Widget"` ile, uygulamanın `~/Applications` ya da `/Applications` içinde olduğunu kontrol et. Galeri eski bir ad ya da ikon gösteriyorsa oturumu kapatıp aç. Galeri uygulama bilgilerini önbellekte tutar.
 </details>
 
 <details>
-<summary><b>Widget çalan bir şey yok diyor</b></summary>
+<summary>Widget çalan bir şey yok diyor</summary>
 
-Spotify masaüstü uygulamasında bir şarkı başlat. Yine güncellenmiyorsa Sistem Ayarları → Gizlilik ve Güvenlik → Otomasyon'da *Spotify Widget*'ın *Spotify*'ı denetlemesine izin verildiğini kontrol et.
+Spotify masaüstü uygulamasında bir şarkı başlat. Widget yine güncellenmiyorsa Sistem Ayarları → Gizlilik ve Güvenlik → Otomasyon'u aç ve *Spotify Widget*'ın *Spotify*'ı denetleyebildiğini kontrol et.
 </details>
 
 <details>
-<summary><b>İzin penceresinde "İzin Verme"ye bastım</b></summary>
+<summary>İzin penceresinde "İzin Verme"ye bastım</summary>
 
-İzni sıfırla ve uygulamayı yeniden başlat:
+İzni sıfırla ve uygulamayı yeniden aç:
 
 ```sh
 tccutil reset AppleEvents <bundle-onekin>.spotifyhelper
+open ~/Applications/"Spotify Widget.app"
 ```
 </details>
 
 <details>
-<summary><b>Widget gri / kapaksız görünüyor</b></summary>
+<summary>Widget griye dönüyor</summary>
 
-macOS, önünde bir pencere varken masaüstü widget'larını soluklaştırır. Masaüstünde boş bir yere tıkla, renkli hâli geri gelir.
+macOS, önünde bir pencere varken masaüstü widget'larını soluklaştırır. Masaüstünde boş bir yere tıkla, renkler geri gelir.
 </details>
-
-## Özel ikon
-
-`SpotifyWidget/` klasörüne `Assets.car` (içinde `AppIcon` olan derlenmiş ikon) ve/veya `AppIcon.icns` koyarsan otomatik kullanılır. İkisi de git'e eklenmez.
 
 ## Değişiklik günlüğü
 
-**1.1**
-- Şarkı bilgisi doğrudan Spotify bildirimlerinden okunuyor — 10 kata kadar daha hızlı güncelleme
-- Tıklanabilir ilerleme çubuğu, geçen ve toplam süre
-- Azerice, Kazakça, Kırgızca, Özbekçe ve Türkmence dahil 16 dil
-- Büyük boyutta kırpılmamış kare kapak
-- Birim testleri
+### 1.1
+- Şarkı bilgisi doğrudan Spotify bildirimlerinden okunuyor, güncellemeler çok daha hızlı.
+- Geçen ve toplam süreli ilerleme çubuğu. Tıklayarak sarılabilir.
+- Azerice, Kazakça, Kırgızca, Özbekçe ve Türkmence dahil 16 dil.
+- Büyük boyutta albüm kapağı kırpılmadan gösteriliyor.
+- Birim testleri.
 
-**1.0**
-- İlk sürüm
+### 1.0
+- İlk sürüm.
 
 ## Sorumluluk reddi
 
-Bu proje Spotify ile bağlantılı değildir, Spotify tarafından onaylanmamış ya da desteklenmemiştir. Spotify, Spotify AB'nin ticari markasıdır.
+Bu proje Spotify ile bağlantılı değildir; Spotify tarafından onaylanmamış ya da desteklenmemiştir. Spotify, Spotify AB'nin ticari markasıdır.
 
 ## Lisans
 
