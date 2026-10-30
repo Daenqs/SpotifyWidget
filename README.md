@@ -159,7 +159,7 @@ sequenceDiagram
     S-->>H: PlaybackStateChanged
 ```
 
-The helper (`SpotifyWidget/`) listens for Spotify's `com.spotify.client.PlaybackStateChanged` notification and reads the track info straight from it. AppleScript is used only for playback commands and to fetch the artwork URL when the track changes. Each cover is downloaded once and cached, and the helper renders a small blurred background from it so the widget never has to blur anything. If a download fails, for example because the network isn't up yet after login, the track is shown without artwork and the download is retried once. The helper also opts out of App Nap, which otherwise held updates back for over a minute after login.
+The helper (`SpotifyWidget/`) listens for Spotify's `com.spotify.client.PlaybackStateChanged` notification and reads the track info straight from it. AppleScript is used only for playback commands and to fetch the artwork URL when the track changes. When the track changes, the new title is drawn right away and the cover follows when it has downloaded. Each cover is downloaded once and cached, and the helper renders a small blurred background from it so the widget never has to blur anything. If a download fails, for example because the network isn't up yet after login, the track is shown without artwork and the download is retried once. The helper also opts out of App Nap, which otherwise held updates back for over a minute after login.
 
 The widget extension (`SpotifyWidgetExtension/`) reads the shared state and draws it. The progress bar is a timer-driven `ProgressView` that the system animates by itself, so each change produces a single timeline entry and the widget redraws in about 100 ms. The buttons are App Intents that send a notification back to the helper.
 
@@ -171,7 +171,8 @@ Release build on an Apple silicon Mac:
 |---|---|
 | Reading Spotify's state | 1–12 ms |
 | Play / pause | about 20 ms |
-| Next track, including artwork download | about 110 ms |
+| Next track, title on screen | about 100 ms |
+| Next track, new cover on screen | about 150–300 ms |
 | Widget redraw after a change | about 100 ms |
 | CPU when idle | 0% |
 | Memory (helper app) | about 26 MB |

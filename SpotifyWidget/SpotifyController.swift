@@ -88,6 +88,7 @@ final class SpotifyController {
         } else if let id = snapshot.trackID, let known = knownArtwork, known.trackID == id {
             artwork = known.url
         } else {
+            update(snapshot.state, artwork: .unchanged)
             artwork = readArtworkURL()
         }
         if let id = snapshot.trackID { knownArtwork = (id, artwork) }
@@ -152,6 +153,8 @@ final class SpotifyController {
             artworkSource = artwork
             update(state, artwork: .replace(cached.image, background: cached.background))
         } else if !artwork.isEmpty, let url = URL(string: artwork) {
+            // Show the new track now instead of waiting on the network; the cover follows once downloaded.
+            update(state, artwork: .unchanged)
             pendingState = state
             guard pendingArtwork == nil else { return }
             pendingArtwork = artwork

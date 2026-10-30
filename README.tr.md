@@ -159,7 +159,7 @@ sequenceDiagram
     S-->>H: PlaybackStateChanged
 ```
 
-Yardımcı uygulama (`SpotifyWidget/`) Spotify'ın `com.spotify.client.PlaybackStateChanged` bildirimini dinler ve şarkı bilgisini doğrudan bildirimden okur. AppleScript'i yalnızca oynatma komutları için ve şarkı değişince kapak adresini almak için kullanır. Her kapak bir kez indirilip önbelleğe alınır; yardımcı uygulama ondan küçük bulanık bir arka plan da hazırlar, böylece widget hiçbir şeyi bulanıklaştırmak zorunda kalmaz. İndirme başarısız olursa (örneğin oturum açtıktan hemen sonra ağ henüz hazır değilse) şarkı kapaksız gösterilir ve indirme bir kez daha denenir. Yardımcı uygulama App Nap'i de kapatır; aksi halde macOS oturum açılışında güncellemeleri bir dakikadan uzun bekletiyordu.
+Yardımcı uygulama (`SpotifyWidget/`) Spotify'ın `com.spotify.client.PlaybackStateChanged` bildirimini dinler ve şarkı bilgisini doğrudan bildirimden okur. AppleScript'i yalnızca oynatma komutları için ve şarkı değişince kapak adresini almak için kullanır. Şarkı değişince yeni ad hemen çizilir, kapak indiği anda gelir. Her kapak bir kez indirilip önbelleğe alınır; yardımcı uygulama ondan küçük bulanık bir arka plan da hazırlar, böylece widget hiçbir şeyi bulanıklaştırmak zorunda kalmaz. İndirme başarısız olursa (örneğin oturum açtıktan hemen sonra ağ henüz hazır değilse) şarkı kapaksız gösterilir ve indirme bir kez daha denenir. Yardımcı uygulama App Nap'i de kapatır; aksi halde macOS oturum açılışında güncellemeleri bir dakikadan uzun bekletiyordu.
 
 Widget eklentisi (`SpotifyWidgetExtension/`) ortak durumu okur ve çizer. İlerleme çubuğu, sistemin kendisinin canlandırdığı zamanlayıcılı bir `ProgressView`. Bu sayede her değişiklik tek bir zaman çizelgesi kaydı üretir ve widget yaklaşık 100 ms'de yeniden çizilir. Butonlar, yardımcı uygulamaya bildirim gönderen App Intent'lerdir.
 
@@ -171,7 +171,8 @@ Apple silicon Mac'te Release sürümüyle ölçüldü:
 |---|---|
 | Spotify durumunu okuma | 1–12 ms |
 | Oynat / duraklat | yaklaşık 20 ms |
-| Sonraki şarkı, kapak indirme dahil | yaklaşık 110 ms |
+| Sonraki şarkı, ad ekranda | yaklaşık 100 ms |
+| Sonraki şarkı, yeni kapak ekranda | yaklaşık 150–300 ms |
 | Değişiklik sonrası widget'ın yeniden çizilmesi | yaklaşık 100 ms |
 | Boştayken CPU | %0 |
 | Bellek (yardımcı uygulama) | yaklaşık 26 MB |
