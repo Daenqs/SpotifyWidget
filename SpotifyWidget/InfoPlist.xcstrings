@@ -1,0 +1,112 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "CFBundleDisplayName": {
+      "shouldTranslate": false
+    },
+    "CFBundleName": {
+      "shouldTranslate": false
+    },
+    "NSAppleEventsUsageDescription": {
+      "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify-da səslənən mahnını göstərmək və idarə etmək üçün istifadə olunur."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird verwendet, um die Wiedergabe in Spotify anzuzeigen und zu steuern."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Used to show and control what's playing in Spotify."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se usa para mostrar y controlar lo que suena en Spotify."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permet d’afficher et de contrôler la lecture dans Spotify."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serve a mostrare e controllare la riproduzione in Spotify."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotifyで再生中の曲を表示・操作するために使用します。"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify-да ойнап тұрған әнді көрсету және басқару үшін қолданылады."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify에서 재생 중인 곡을 표시하고 제어하는 데 사용됩니다."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify-да ойноп жаткан ырды көрсөтүү жана башкаруу үчүн колдонулат."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usado para mostrar e controlar o que está tocando no Spotify."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нужно, чтобы показывать воспроизведение в Spotify и управлять им."
+          }
+        },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify-da çalynýan aýdymy görkezmek we dolandyrmak üçin ulanylýar."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify'da çalan şarkıyı göstermek ve kontrol etmek için kullanılır."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotifyʼda ijro etilayotgan qoʻshiqni koʻrsatish va boshqarish uchun ishlatiladi."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用于显示和控制 Spotify 中正在播放的内容。"
+          }
+        }
+      }
+    }
+  }
+}

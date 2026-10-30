@@ -1,11 +1,31 @@
 import AppKit
+import OSLog
 import WidgetKit
 
+@MainActor
 final class SpotifyController {
+    private struct Snapshot {
+        var state: NowPlaying
+        var trackID: String?
+        var artworkURL: String?
+    }
+
+    private enum ArtworkChange {
+        case unchanged
+        case remove
+        case replace(Data, background: Data?)
+    }
+
+    private let log = Logger(subsystem: "spotifywidget", category: "spotify")
+    private let session = URLSession(configuration: .ephemeral)
+
     private var published: NowPlaying?
     private var artworkSource: String?
+    private var knownArtwork: (trackID: String, url: String)?
     private var pendingArtwork: String?
+    private var pendingState: NowPlaying?
     private var artworkCache: [String: (image: Data, background: Data?)] = [:]
+    private var lastPublish = ContinuousClock.now
 
     private static let stateScript = compiled("""
         if application id "com.spotify.client" is running then
@@ -18,6 +38,8 @@ final class SpotifyController {
         return {}
         """)
 
+    private static let artworkScript = spotify("artwork url of current track")
+
     private static let commandScripts: [Command: NSAppleScript] = [
         .playPause: spotify("playpause"),
         .next: spotify("next track"),
@@ -27,31 +49,80 @@ final class SpotifyController {
     func send(_ command: Command, argument: String? = nil) {
         let script: NSAppleScript
         if command == .seek {
-            guard let fraction = argument.flatMap(Double.init), (0...1).contains(fraction) else { return }
+            guard let fraction = Command.seekFraction(argument) else { return }
             script = Self.spotify("set player position to (\(fraction) * (duration of current track) / 1000)")
         } else {
             guard let cached = Self.commandScripts[command] else { return }
             script = cached
         }
+        let start = ContinuousClock.now
         var error: NSDictionary?
         script.executeAndReturnError(&error)
-        if let error { NSLog("Spotify command failed: \(error)") }
+        if let error { log.error("Spotify command \(command.rawValue, privacy: .public) failed: \(error, privacy: .public)") }
+        log.debug("command \(command.rawValue, privacy: .public) took \(ContinuousClock.now - start, privacy: .public)")
+
+        let sent = ContinuousClock.now
+        Task {
+            try? await Task.sleep(for: .milliseconds(150))
+            if lastPublish < sent { publishState() }
+        }
     }
 
-    func publishState() {
-        var error: NSDictionary?
-        let result = Self.stateScript.executeAndReturnError(&error)
-        if let error { NSLog("Couldn't read Spotify state: \(error)") }
+    func publishState(from info: [AnyHashable: Any]? = nil) {
+        let start = ContinuousClock.now
+        lastPublish = start
+        defer { log.debug("publishState(\(info == nil ? "script" : "notification", privacy: .public)) took \(ContinuousClock.now - start, privacy: .public)") }
 
-        guard error == nil, result.numberOfItems == 7 else {
+        guard let snapshot = snapshot(from: info) else {
             artworkSource = nil
+            knownArtwork = nil
             pendingArtwork = nil
             update(nil, artwork: .remove)
             return
         }
+
+        let artwork: String
+        if let url = snapshot.artworkURL {
+            artwork = url
+        } else if let id = snapshot.trackID, let known = knownArtwork, known.trackID == id {
+            artwork = known.url
+        } else {
+            artwork = readArtworkURL()
+        }
+        if let id = snapshot.trackID { knownArtwork = (id, artwork) }
+
+        publish(snapshot.state, artwork: artwork)
+    }
+
+    private func snapshot(from info: [AnyHashable: Any]?) -> Snapshot? {
+        guard let info,
+              let playerState = info["Player State"] as? String,
+              let title = info["Name"] as? String,
+              let duration = info["Duration"] as? NSNumber,
+              let position = info["Playback Position"] as? NSNumber
+        else { return readSnapshot() }
+
+        guard playerState != "Stopped" else { return nil }
+        let state = NowPlaying(
+            title: title,
+            artist: info["Artist"] as? String ?? "",
+            album: info["Album"] as? String ?? "",
+            isPlaying: playerState == "Playing",
+            duration: duration.doubleValue / 1000,
+            position: position.doubleValue,
+            updatedAt: .now
+        )
+        return Snapshot(state: state, trackID: info["Track ID"] as? String)
+    }
+
+    private func readSnapshot() -> Snapshot? {
+        var error: NSDictionary?
+        let result = Self.stateScript.executeAndReturnError(&error)
+        if let error { log.error("Couldn't read Spotify state: \(error, privacy: .public)") }
+        guard error == nil, result.numberOfItems == 7 else { return nil }
+
         func text(_ i: Int) -> String { result.atIndex(i)?.stringValue ?? "" }
         func number(_ i: Int) -> Double { result.atIndex(i)?.doubleValue ?? 0 }
-
         let state = NowPlaying(
             title: text(1), artist: text(2), album: text(3),
             isPlaying: text(4) == "playing",
@@ -59,14 +130,29 @@ final class SpotifyController {
             position: number(6),
             updatedAt: .now
         )
-        let artwork = text(7)
+        return Snapshot(state: state, artworkURL: text(7))
+    }
+
+    private func readArtworkURL() -> String {
+        var error: NSDictionary?
+        let result = Self.artworkScript.executeAndReturnError(&error)
+        if let error { log.error("Couldn't read artwork URL: \(error, privacy: .public)") }
+        return result.stringValue ?? ""
+    }
+
+    private func publish(_ state: NowPlaying, artwork: String) {
+        if artwork != pendingArtwork {
+            pendingArtwork = nil
+            pendingState = nil
+        }
         if artwork == artworkSource {
             update(state, artwork: .unchanged)
         } else if let cached = artworkCache[artwork] {
             artworkSource = artwork
             update(state, artwork: .replace(cached.image, background: cached.background))
         } else if !artwork.isEmpty, let url = URL(string: artwork) {
-            guard artwork != pendingArtwork else { return }
+            pendingState = state
+            guard pendingArtwork == nil else { return }
             pendingArtwork = artwork
             download(url, key: artwork)
         } else {
@@ -76,28 +162,25 @@ final class SpotifyController {
     }
 
     private func download(_ url: URL, key: String) {
-        URLSession.shared.dataTask(with: url) { data, response, _ in
-            let image = (response as? HTTPURLResponse)?.statusCode == 200 ? data : nil
-            let background = image.flatMap(BackgroundRenderer.render)
-            DispatchQueue.main.async {
-                guard self.pendingArtwork == key else { return }
-                self.pendingArtwork = nil
-                if let image {
-                    if self.artworkCache.count >= 20 { self.artworkCache.removeAll() }
-                    self.artworkCache[key] = (image, background)
-                } else {
-                    self.artworkSource = key
-                    SharedStore.saveArtwork(nil, background: nil)
-                }
-                self.publishState()
-            }
-        }.resume()
-    }
+        Task {
+            let start = ContinuousClock.now
+            let response = try? await session.data(from: url)
+            let image = (response?.1 as? HTTPURLResponse)?.statusCode == 200 ? response?.0 : nil
+            let background = await Task.detached(priority: .utility) { image.flatMap(BackgroundRenderer.render) }.value
+            log.debug("artwork took \(ContinuousClock.now - start, privacy: .public)")
 
-    private enum ArtworkChange {
-        case unchanged
-        case remove
-        case replace(Data, background: Data?)
+            guard pendingArtwork == key, let state = pendingState else { return }
+            pendingArtwork = nil
+            pendingState = nil
+            if let image {
+                if artworkCache.count >= 20 { artworkCache.removeAll() }
+                artworkCache[key] = (image, background)
+            } else {
+                artworkSource = key
+                SharedStore.saveArtwork(nil, background: nil)
+            }
+            publish(state, artwork: key)
+        }
     }
 
     private func update(_ state: NowPlaying?, artwork: ArtworkChange) {
@@ -115,15 +198,9 @@ final class SpotifyController {
         SharedStore.save(state)
 
         let stateChanged = state.map { !$0.sameTrackAndState(as: published) } ?? (published != nil)
-        let changed = artworkChanged || stateChanged || Self.jumped(from: published, to: state)
+        let changed = artworkChanged || stateChanged || (state?.jumped(from: published) ?? false)
         published = state
         if changed { WidgetCenter.shared.reloadAllTimelines() }
-    }
-
-    private static func jumped(from old: NowPlaying?, to new: NowPlaying?) -> Bool {
-        guard let old, let new else { return false }
-        let expected = old.isPlaying ? old.position + new.updatedAt.timeIntervalSince(old.updatedAt) : old.position
-        return abs(expected - new.position) > 3
     }
 
     private static func spotify(_ statement: String) -> NSAppleScript {

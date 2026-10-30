@@ -29,7 +29,7 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>Spotify'da çalan şarkıyı okumak ve kontrol etmek için.</string>
+	<string>Used to show and control what's playing in Spotify.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

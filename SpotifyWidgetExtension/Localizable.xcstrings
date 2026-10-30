@@ -1,100 +1,6 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "Album": {
-      "localizations": {
-        "az": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Albom"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Album"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Álbum"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Album"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Album"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "アルバム"
-          }
-        },
-        "kk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Альбом"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "앨범"
-          }
-        },
-        "ky": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Альбом"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Álbum"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Альбом"
-          }
-        },
-        "tk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Albom"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Albüm"
-          }
-        },
-        "uz": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Albom"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "专辑"
-          }
-        }
-      }
-    },
     "Artist": {
       "localizations": {
         "az": {
@@ -272,7 +178,7 @@
         "uz": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keyingi qo‘shiq"
+            "value": "Keyingi qoʻshiq"
           }
         },
         "zh-Hans": {
@@ -336,7 +242,7 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Spotify'да эч нерсе ойнотулбай жатат"
+            "value": "Spotify-да эч нерсе ойнотулбай жатат"
           }
         },
         "pt-BR": {
@@ -366,7 +272,7 @@
         "uz": {
           "stringUnit": {
             "state": "translated",
-            "value": "Spotify’da hech narsa ijro etilmayapti"
+            "value": "Spotifyʼda hech narsa ijro etilmayapti"
           }
         },
         "zh-Hans": {
@@ -460,7 +366,7 @@
         "uz": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hozir ijro etilayotgan qo‘shiq va ijro boshqaruvi."
+            "value": "Hozir ijro etilayotgan qoʻshiq va ijro boshqaruvi."
           }
         },
         "zh-Hans": {
@@ -742,7 +648,7 @@
         "uz": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldingi qo‘shiq"
+            "value": "Oldingi qoʻshiq"
           }
         },
         "zh-Hans": {
@@ -824,7 +730,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ýere geç"
+            "value": "Oruna geç"
           }
         },
         "tr": {
@@ -836,7 +742,7 @@
         "uz": {
           "stringUnit": {
             "state": "translated",
-            "value": "Joyga o‘tish"
+            "value": "Pozitsiyaga oʻtish"
           }
         },
         "zh-Hans": {
@@ -930,7 +836,7 @@
         "uz": {
           "stringUnit": {
             "state": "translated",
-            "value": "Qo‘shiq nomi"
+            "value": "Qoʻshiq nomi"
           }
         },
         "zh-Hans": {

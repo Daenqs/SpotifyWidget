@@ -17,6 +17,12 @@ struct NowPlaying: Codable, Equatable {
         return title == other.title && artist == other.artist && album == other.album && isPlaying == other.isPlaying
     }
 
+    func jumped(from old: NowPlaying?, tolerance: TimeInterval = 3) -> Bool {
+        guard let old else { return false }
+        let expected = old.isPlaying ? old.position + updatedAt.timeIntervalSince(old.updatedAt) : old.position
+        return abs(expected - position) > tolerance
+    }
+
     func toggled(at now: Date = .now) -> NowPlaying {
         var copy = self
         if isPlaying { copy.position = min(duration, position + now.timeIntervalSince(updatedAt)) }
@@ -33,7 +39,7 @@ struct NowPlaying: Codable, Equatable {
     }
 
     static let placeholder = NowPlaying(
-        title: String(localized: "Song Title"), artist: String(localized: "Artist"), album: String(localized: "Album"),
+        title: String(localized: "Song Title"), artist: String(localized: "Artist"), album: "",
         isPlaying: true, duration: 210, position: 70, updatedAt: .now
     )
 }

@@ -30,8 +30,14 @@ A native macOS desktop / Notification Center widget for the Spotify desktop app.
 
 Widgets are sandboxed and can't talk to Spotify directly, so the project has two parts:
 
-- **SpotifyWidget** – a background helper that listens to Spotify's `com.spotify.client.PlaybackStateChanged` notification, reads the current track over AppleScript and writes it to a shared App Group container.
+- **SpotifyWidget** – a background helper that listens to Spotify's `com.spotify.client.PlaybackStateChanged` notification and writes the current track to a shared App Group container. Track info comes straight from the notification; AppleScript is only used for artwork URLs and playback commands.
 - **SpotifyWidgetExtension** – a WidgetKit extension that renders that state. Buttons are App Intents that send a distributed notification back to the helper, which forwards the command to Spotify.
+
+## Tests
+
+```sh
+xcodebuild test -project SpotifyWidget.xcodeproj -scheme SpotifyWidgetTests -destination 'platform=macOS'
+```
 
 ## Custom icon
 

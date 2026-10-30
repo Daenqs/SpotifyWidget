@@ -2,6 +2,7 @@ import AppKit
 import ServiceManagement
 
 @main
+@MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let spotify = SpotifyController()
 
@@ -16,7 +17,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         try? SMAppService.mainApp.register()
 
         let center = DistributedNotificationCenter.default()
-        center.addObserver(self, selector: #selector(spotifyChanged),
+        center.addObserver(self, selector: #selector(spotifyChanged(_:)),
                            name: .init("com.spotify.client.PlaybackStateChanged"),
                            object: nil, suspensionBehavior: .deliverImmediately)
         for command in Command.allCases {
@@ -27,8 +28,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         spotify.publishState()
     }
 
-    @objc private func spotifyChanged() {
-        spotify.publishState()
+    @objc private func spotifyChanged(_ notification: Notification) {
+        spotify.publishState(from: notification.userInfo)
     }
 
     @objc private func commandReceived(_ notification: Notification) {
