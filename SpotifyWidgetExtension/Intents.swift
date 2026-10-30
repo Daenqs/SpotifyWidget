@@ -1,7 +1,7 @@
 import AppIntents
 
 struct PlayPauseIntent: AppIntent {
-    static let title: LocalizedStringResource = "Oynat / Duraklat"
+    static let title: LocalizedStringResource = "Play / Pause"
 
     func perform() async throws -> some IntentResult {
         if let state = SharedStore.load() { SharedStore.save(state.toggled()) }
@@ -11,7 +11,7 @@ struct PlayPauseIntent: AppIntent {
 }
 
 struct NextTrackIntent: AppIntent {
-    static let title: LocalizedStringResource = "Sonraki Şarkı"
+    static let title: LocalizedStringResource = "Next Track"
 
     func perform() async throws -> some IntentResult {
         await Command.next.postAndWaitForUpdate()
@@ -20,7 +20,7 @@ struct NextTrackIntent: AppIntent {
 }
 
 struct PreviousTrackIntent: AppIntent {
-    static let title: LocalizedStringResource = "Önceki Şarkı"
+    static let title: LocalizedStringResource = "Previous Track"
 
     func perform() async throws -> some IntentResult {
         await Command.previous.postAndWaitForUpdate()
@@ -41,9 +41,9 @@ private extension Command {
 }
 
 struct SeekIntent: AppIntent {
-    static let title: LocalizedStringResource = "Şarkıda Atla"
+    static let title: LocalizedStringResource = "Seek"
 
-    @Parameter(title: "Konum (0–1)")
+    @Parameter(title: "Position")
     var fraction: Double
 
     init() {}

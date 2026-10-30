@@ -6,6 +6,9 @@ struct NowPlayingView: View {
     @Environment(\.widgetFamily) private var family
     @Environment(\.colorScheme) private var colorScheme
 
+    private static let logo = Bundle.main.url(forResource: "SpotifyLogo", withExtension: "png")
+        .flatMap { NSImage(contentsOf: $0) }
+
     var body: some View {
         Group {
             if let state = entry.state {
@@ -38,24 +41,28 @@ struct NowPlayingView: View {
     private func small(_ state: NowPlaying) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .top) {
-                artwork.frame(width: 64, height: 64)
+                artwork(fill: false).frame(width: 64, height: 64)
                 Spacer()
+                logo
+            }
+            Spacer(minLength: 8)
+            HStack(alignment: .bottom) {
+                titles(state)
+                Spacer(minLength: 4)
                 Button(intent: PlayPauseIntent()) {
                     Image(systemName: state.isPlaying ? "pause.fill" : "play.fill")
                         .font(.title3)
                 }
                 .buttonStyle(.plain)
             }
-            Spacer(minLength: 8)
-            titles(state)
         }
     }
 
     private func medium(_ state: NowPlaying) -> some View {
         HStack(spacing: 14) {
-            artwork
+            artwork(fill: false)
             VStack(alignment: .leading, spacing: 6) {
-                titles(state)
+                header(state)
                 Spacer(minLength: 0)
                 ProgressBar(state: state, date: entry.date)
                 controls(state).frame(maxWidth: .infinity)
@@ -65,8 +72,8 @@ struct NowPlayingView: View {
 
     private func large(_ state: NowPlaying) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            artwork.frame(maxWidth: .infinity, alignment: .leading)
-            titles(state)
+            artwork(fill: true)
+            header(state)
             ProgressBar(state: state, date: entry.date)
             controls(state).frame(maxWidth: .infinity)
         }
@@ -77,25 +84,45 @@ struct NowPlayingView: View {
             Image(systemName: "music.note")
                 .font(.largeTitle)
                 .foregroundStyle(.secondary)
-            Text("Spotify'da çalan bir şey yok")
+            Text("Nothing playing on Spotify")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
         }
     }
 
-    private var artwork: some View {
+    @ViewBuilder
+    private var logo: some View {
+        if let image = Self.logo {
+            CoverImage(image: image, contentMode: .fit)
+                .frame(width: 18, height: 18)
+        }
+    }
+
+    private func artwork(fill: Bool) -> some View {
         Group {
             if let image = entry.artwork {
-                CoverImage(image: image, contentMode: .fit)
+                if fill {
+                    Color.clear.overlay { CoverImage(image: image, contentMode: .fill) }
+                } else {
+                    CoverImage(image: image, contentMode: .fit)
+                }
             } else {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(.quaternary)
-                    .aspectRatio(1, contentMode: .fit)
+                    .aspectRatio(fill ? nil : 1, contentMode: .fit)
                     .overlay(Image(systemName: "music.note").foregroundStyle(.secondary))
             }
         }
-        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .clipShape(RoundedRectangle(cornerRadius: fill ? 12 : 8))
+    }
+
+    private func header(_ state: NowPlaying) -> some View {
+        HStack(alignment: .top, spacing: 6) {
+            titles(state)
+            Spacer(minLength: 0)
+            logo
+        }
     }
 
     private func titles(_ state: NowPlaying) -> some View {

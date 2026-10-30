@@ -5,3 +5,4 @@ xcuserdata/
 *.xcuserstate
 Configs/Local.xcconfig
 SpotifyWidget/AppIcon.icns
+SpotifyWidgetExtension/SpotifyLogo.png

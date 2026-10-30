@@ -33,7 +33,7 @@ struct NowPlaying: Codable, Equatable {
     }
 
     static let placeholder = NowPlaying(
-        title: "Şarkı Adı", artist: "Sanatçı", album: "Albüm",
+        title: String(localized: "Song Title"), artist: String(localized: "Artist"), album: String(localized: "Album"),
         isPlaying: true, duration: 210, position: 70, updatedAt: .now
     )
 }

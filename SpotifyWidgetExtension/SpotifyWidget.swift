@@ -8,7 +8,7 @@ struct SpotifyWidget: Widget {
             NowPlayingView(entry: entry)
         }
         .configurationDisplayName("Spotify")
-        .description("Çalan şarkı ve oynatma kontrolleri.")
+        .description("Now playing and playback controls.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

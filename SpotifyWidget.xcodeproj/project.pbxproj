@@ -173,10 +173,20 @@
 				LastUpgradeCheck = 2700;
 			};
 			buildConfigurationList = 8000000000000000000000B1 /* Build configuration list for PBXProject "SpotifyWidget" */;
-			developmentRegion = tr;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				tr,
+				de,
+				es,
+				fr,
+				it,
+				"pt-BR",
+				ru,
+				ja,
+				ko,
+				"zh-Hans",
 				Base,
 			);
 			mainGroup = A00000000000000000000001;
