@@ -23,7 +23,7 @@ struct NowPlayingView: View {
         }
         .overlay(alignment: .topTrailing) {
             if entry.state != nil {
-                logo.padding(family == .systemLarge ? 8 : 0)
+                logo
             }
         }
         .environment(\.colorScheme, entry.background == nil ? colorScheme : .dark)
@@ -45,7 +45,7 @@ struct NowPlayingView: View {
 
     private func small(_ state: NowPlaying) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            artwork(fill: false).frame(width: 64, height: 64)
+            artwork.frame(width: 64, height: 64)
             Spacer(minLength: 8)
             HStack(alignment: .bottom) {
                 titles(state)
@@ -61,7 +61,7 @@ struct NowPlayingView: View {
 
     private func medium(_ state: NowPlaying) -> some View {
         HStack(spacing: 14) {
-            artwork(fill: false)
+            artwork
             VStack(alignment: .leading, spacing: 6) {
                 titles(state).padding(.trailing, 24)
                 Spacer(minLength: 0)
@@ -73,7 +73,9 @@ struct NowPlayingView: View {
 
     private func large(_ state: NowPlaying) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            artwork(fill: true)
+            artwork
+                .shadow(color: .black.opacity(0.35), radius: 8, y: 4)
+                .frame(maxWidth: .infinity)
             titles(state)
             ProgressBar(state: state, date: entry.date)
             controls(state).frame(maxWidth: .infinity)
@@ -101,22 +103,18 @@ struct NowPlayingView: View {
         }
     }
 
-    private func artwork(fill: Bool) -> some View {
+    private var artwork: some View {
         Group {
             if let image = entry.artwork {
-                if fill {
-                    Color.clear.overlay { CoverImage(image: image, contentMode: .fill) }
-                } else {
-                    CoverImage(image: image, contentMode: .fit)
-                }
+                CoverImage(image: image, contentMode: .fit)
             } else {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(.quaternary)
-                    .aspectRatio(fill ? nil : 1, contentMode: .fit)
+                    .aspectRatio(1, contentMode: .fit)
                     .overlay(Image(systemName: "music.note").foregroundStyle(.secondary))
             }
         }
-        .clipShape(RoundedRectangle(cornerRadius: fill ? 12 : 8))
+        .clipShape(RoundedRectangle(cornerRadius: family == .systemLarge ? 12 : 8))
     }
 
     private func titles(_ state: NowPlaying) -> some View {
