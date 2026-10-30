@@ -41,7 +41,7 @@ xcodebuild test -project SpotifyWidget.xcodeproj -scheme SpotifyWidgetTests -des
 
 ## Custom icon
 
-Put an `AppIcon.icns` in `SpotifyWidget/` and it will be picked up automatically. It is git-ignored.
+Put an `Assets.car` (compiled icon with an `AppIcon` entry) and/or an `AppIcon.icns` in `SpotifyWidget/` and they will be picked up automatically. Both are git-ignored.
 
 ## Disclaimer
 
