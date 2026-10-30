@@ -7,4 +7,3 @@ Configs/Local.xcconfig
 SpotifyWidget/AppIcon.icns
 SpotifyWidgetExtension/SpotifyLogo.png
 SpotifyWidget/Assets.car
-dist/

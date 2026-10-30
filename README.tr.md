@@ -5,7 +5,7 @@
 Spotify masaüstü uygulaması için yerel bir macOS widget'ı.<br>
 Albüm kapağı, canlı ilerleme çubuğu ve oynatma kontrolleri masaüstünde ve Bildirim Merkezi'nde.
 
-[![Sürüm](https://img.shields.io/badge/s%C3%BCr%C3%BCm-1.1-1DB954?style=flat-square)](https://github.com/<kullanici-adin>/SpotifyWidget/releases)
+[![Sürüm](https://img.shields.io/badge/s%C3%BCr%C3%BCm-1.1-1DB954?style=flat-square)](#kurulum)
 [![macOS](https://img.shields.io/badge/macOS-14%2B-black?style=flat-square)](#gereksinimler)
 [![Diller](https://img.shields.io/badge/dil-16-8A2BE2?style=flat-square)](#diller)
 [![Lisans](https://img.shields.io/badge/lisans-MIT-lightgrey?style=flat-square)](LICENSE)
@@ -45,31 +45,16 @@ Demo kaydı:
 
 ## Kurulum
 
-### İndir (önerilen)
+Uygulamayı kaynak koddan bir kez derliyorsun. Yaklaşık iki dakika sürer; Xcode ve ücretsiz bir Apple ID gerekir. `xcodebuild` Xcode gerektiğini söylerse önce `sudo xcode-select -s /Applications/Xcode.app` komutunu çalıştır.
 
-1. [Releases](https://github.com/<kullanici-adin>/SpotifyWidget/releases) sayfasından **SpotifyWidget-1.1.dmg** dosyasını indir.
-2. Dosyayı aç ve **Spotify Widget**'ı **Uygulamalar** klasörüne sürükle.
-3. Uygulamalar'dan **Spotify Widget**'ı aç. macOS uygulamayı doğrulayamadığını söyleyecek. **Bitti**'ye tıkla.
-4. Sistem Ayarları → Gizlilik ve Güvenlik'i aç, aşağı kaydır ve *"Spotify Widget" engellendi* yazısının yanındaki **Yine de Aç**'a tıkla. Parolanla onayla. Bunu yalnızca bir kez yapman gerekir.
-5. macOS, *Spotify Widget*'ın *Spotify*'ı denetlemesine izin verip vermeyeceğini sorduğunda **İzin Ver**'e tıkla.
-6. Masaüstüne sağ tıkla, **Widget'ları Düzenle**'yi seç, **Spotify** ara ve bir boyutu masaüstüne sürükle.
-
-Uygulamanın penceresi ve Dock simgesi yok. Arka planda çalışır ve oturum açtığında kendiliğinden başlar.
-
-> 3. adımdaki uyarı, uygulamanın Apple tarafından onaylanmamış (notarize edilmemiş) olmasından kaynaklanır; bunun için ücretli geliştirici hesabı gerekir. Uyarıyı geçmek istemezsen uygulamayı kendin derleyebilirsin.
-
-### Kaynak koddan derleme
-
-Xcode ve ücretsiz bir Apple ID gerekir. `xcodebuild` Xcode gerektiğini söylerse önce `sudo xcode-select -s /Applications/Xcode.app` komutunu çalıştır.
-
-#### 1. Depoyu indir
+### 1. Depoyu indir
 
 ```sh
 git clone https://github.com/<kullanici-adin>/SpotifyWidget.git
 cd SpotifyWidget
 ```
 
-#### 2. İmza bilgilerini ekle
+### 2. İmza bilgilerini ekle
 
 Xcode'da Apple ID ile oturum aç (Xcode → Settings → Accounts). Sonra yerel ayar dosyasını oluştur:
 
@@ -86,7 +71,7 @@ cp Configs/Local.xcconfig.example Configs/Local.xcconfig
 
 `Local.xcconfig` git'e eklenmez, bilgilerin hiçbir commit'e girmez.
 
-#### 3. Derle
+### 3. Derle
 
 ```sh
 xcodebuild -project SpotifyWidget.xcodeproj -scheme SpotifyWidget \
@@ -94,7 +79,7 @@ xcodebuild -project SpotifyWidget.xcodeproj -scheme SpotifyWidget \
   -derivedDataPath build -allowProvisioningUpdates build
 ```
 
-#### 4. Kur ve başlat
+### 4. Kur ve başlat
 
 ```sh
 mkdir -p ~/Applications
@@ -102,9 +87,15 @@ cp -R "build/Build/Products/Release/Spotify Widget.app" ~/Applications/
 open ~/Applications/"Spotify Widget.app"
 ```
 
-Sonra yukarıdaki 5. ve 6. adımlarla devam et.
+Uygulamanın penceresi ve Dock simgesi yok. Arka planda çalışır ve oturum açtığında kendiliğinden başlar.
 
-Kendi DMG dosyanı oluşturmak için `scripts/make-dmg.sh` betiğini çalıştır. Betik deponun temiz bir kopyasından derler ve `dist/SpotifyWidget-<sürüm>.dmg` dosyasını oluşturur.
+### 5. İzin ver
+
+macOS, *Spotify Widget*'ın *Spotify*'ı denetlemesine izin verip vermeyeceğini sorar. **İzin Ver**'e tıkla.
+
+### 6. Widget'ı ekle
+
+Masaüstüne sağ tıkla ve **Widget'ları Düzenle**'yi seç. **Spotify** ara ve bir boyutu masaüstüne sürükle.
 
 ## Kaldırma
 
@@ -173,7 +164,6 @@ Configs/                  Derleme ayarları
 Shared/                   Yardımcı uygulama ve widget'ın ortak kodu
 SpotifyWidget/            Yardımcı uygulama
 SpotifyWidgetExtension/   Widget eklentisi
-scripts/                  DMG paketleme
 Tests/                    Birim testleri
 docs/images/              README görselleri
 ```
