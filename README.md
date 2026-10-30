@@ -45,16 +45,31 @@ Demo recording:
 
 ## Installation
 
-There is no prebuilt download yet, so you need to build the app once. It takes about two minutes and only needs a free Apple ID.
+### Download (recommended)
 
-### 1. Clone the repository
+1. Download **SpotifyWidget-1.1.dmg** from the [Releases](https://github.com/<your-username>/SpotifyWidget/releases) page.
+2. Open it and drag **Spotify Widget** into **Applications**.
+3. Open **Spotify Widget** from Applications. macOS will say it can't verify the app. Click **Done**.
+4. Open System Settings → Privacy & Security, scroll down and click **Open Anyway** next to *"Spotify Widget" was blocked*. Confirm with your password. You only need to do this once.
+5. When macOS asks whether *Spotify Widget* may control *Spotify*, click **Allow**.
+6. Right-click the desktop, choose **Edit Widgets**, search for **Spotify** and drag a size onto the desktop.
+
+The app has no window or Dock icon. It runs in the background and starts automatically when you log in.
+
+> The warning in step 3 appears because the app isn't notarized by Apple, which requires a paid developer account. If you'd rather not bypass it, build the app yourself instead.
+
+### Build from source
+
+You need Xcode and a free Apple ID. If `xcodebuild` says it requires Xcode, run `sudo xcode-select -s /Applications/Xcode.app` first.
+
+#### 1. Clone the repository
 
 ```sh
 git clone https://github.com/<your-username>/SpotifyWidget.git
 cd SpotifyWidget
 ```
 
-### 2. Add your signing details
+#### 2. Add your signing details
 
 Sign in to Xcode with your Apple ID (Xcode → Settings → Accounts). Then create your local config:
 
@@ -71,7 +86,7 @@ Open `Configs/Local.xcconfig` and set both values:
 
 `Local.xcconfig` is git-ignored, so your details never end up in a commit.
 
-### 3. Build
+#### 3. Build
 
 ```sh
 xcodebuild -project SpotifyWidget.xcodeproj -scheme SpotifyWidget \
@@ -79,7 +94,7 @@ xcodebuild -project SpotifyWidget.xcodeproj -scheme SpotifyWidget \
   -derivedDataPath build -allowProvisioningUpdates build
 ```
 
-### 4. Install and launch
+#### 4. Install and launch
 
 ```sh
 mkdir -p ~/Applications
@@ -87,15 +102,9 @@ cp -R "build/Build/Products/Release/Spotify Widget.app" ~/Applications/
 open ~/Applications/"Spotify Widget.app"
 ```
 
-The app has no window or Dock icon. It runs in the background and adds itself to your login items.
+Then continue with steps 5 and 6 above.
 
-### 5. Allow access
-
-macOS asks whether *Spotify Widget* may control *Spotify*. Click **Allow**.
-
-### 6. Add the widget
-
-Right-click the desktop and choose **Edit Widgets**. Search for **Spotify** and drag a size onto the desktop.
+To make your own DMG, run `scripts/make-dmg.sh`. It builds from a clean copy of the repository and writes `dist/SpotifyWidget-<version>.dmg`.
 
 ## Uninstall
 
@@ -103,7 +112,7 @@ Right-click the desktop and choose **Edit Widgets**. Search for **Spotify** and 
 2. Quit the helper and delete the app:
    ```sh
    pkill -x "Spotify Widget"
-   rm -rf ~/Applications/"Spotify Widget.app"
+   rm -rf /Applications/"Spotify Widget.app" ~/Applications/"Spotify Widget.app"
    ```
 3. Remove *Spotify Widget* from System Settings → General → Login Items, if it is still listed.
 
@@ -164,6 +173,7 @@ Configs/                  Build settings
 Shared/                   Code used by the helper and the widget
 SpotifyWidget/            Helper app
 SpotifyWidgetExtension/   Widget extension
+scripts/                  DMG packaging
 Tests/                    Unit tests
 docs/images/              README images
 ```
@@ -204,8 +214,8 @@ Start a song in the Spotify desktop app. If the widget still does not update, op
 Reset the permission, then open the app again:
 
 ```sh
-tccutil reset AppleEvents <your-bundle-prefix>.spotifyhelper
-open ~/Applications/"Spotify Widget.app"
+tccutil reset AppleEvents "$(osascript -e 'id of app "Spotify Widget"')"
+open -a "Spotify Widget"
 ```
 </details>
 

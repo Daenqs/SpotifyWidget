@@ -45,16 +45,31 @@ Demo kaydı:
 
 ## Kurulum
 
-Henüz hazır indirme yok, bu yüzden uygulamayı bir kez derlemen gerekiyor. Yaklaşık iki dakika sürer ve sadece ücretsiz bir Apple ID gerekir.
+### İndir (önerilen)
 
-### 1. Depoyu indir
+1. [Releases](https://github.com/<kullanici-adin>/SpotifyWidget/releases) sayfasından **SpotifyWidget-1.1.dmg** dosyasını indir.
+2. Dosyayı aç ve **Spotify Widget**'ı **Uygulamalar** klasörüne sürükle.
+3. Uygulamalar'dan **Spotify Widget**'ı aç. macOS uygulamayı doğrulayamadığını söyleyecek. **Bitti**'ye tıkla.
+4. Sistem Ayarları → Gizlilik ve Güvenlik'i aç, aşağı kaydır ve *"Spotify Widget" engellendi* yazısının yanındaki **Yine de Aç**'a tıkla. Parolanla onayla. Bunu yalnızca bir kez yapman gerekir.
+5. macOS, *Spotify Widget*'ın *Spotify*'ı denetlemesine izin verip vermeyeceğini sorduğunda **İzin Ver**'e tıkla.
+6. Masaüstüne sağ tıkla, **Widget'ları Düzenle**'yi seç, **Spotify** ara ve bir boyutu masaüstüne sürükle.
+
+Uygulamanın penceresi ve Dock simgesi yok. Arka planda çalışır ve oturum açtığında kendiliğinden başlar.
+
+> 3. adımdaki uyarı, uygulamanın Apple tarafından onaylanmamış (notarize edilmemiş) olmasından kaynaklanır; bunun için ücretli geliştirici hesabı gerekir. Uyarıyı geçmek istemezsen uygulamayı kendin derleyebilirsin.
+
+### Kaynak koddan derleme
+
+Xcode ve ücretsiz bir Apple ID gerekir. `xcodebuild` Xcode gerektiğini söylerse önce `sudo xcode-select -s /Applications/Xcode.app` komutunu çalıştır.
+
+#### 1. Depoyu indir
 
 ```sh
 git clone https://github.com/<kullanici-adin>/SpotifyWidget.git
 cd SpotifyWidget
 ```
 
-### 2. İmza bilgilerini ekle
+#### 2. İmza bilgilerini ekle
 
 Xcode'da Apple ID ile oturum aç (Xcode → Settings → Accounts). Sonra yerel ayar dosyasını oluştur:
 
@@ -71,7 +86,7 @@ cp Configs/Local.xcconfig.example Configs/Local.xcconfig
 
 `Local.xcconfig` git'e eklenmez, bilgilerin hiçbir commit'e girmez.
 
-### 3. Derle
+#### 3. Derle
 
 ```sh
 xcodebuild -project SpotifyWidget.xcodeproj -scheme SpotifyWidget \
@@ -79,7 +94,7 @@ xcodebuild -project SpotifyWidget.xcodeproj -scheme SpotifyWidget \
   -derivedDataPath build -allowProvisioningUpdates build
 ```
 
-### 4. Kur ve başlat
+#### 4. Kur ve başlat
 
 ```sh
 mkdir -p ~/Applications
@@ -87,15 +102,9 @@ cp -R "build/Build/Products/Release/Spotify Widget.app" ~/Applications/
 open ~/Applications/"Spotify Widget.app"
 ```
 
-Uygulamanın penceresi ve Dock simgesi yok. Arka planda çalışır ve kendini giriş öğelerine ekler.
+Sonra yukarıdaki 5. ve 6. adımlarla devam et.
 
-### 5. İzin ver
-
-macOS, *Spotify Widget*'ın *Spotify*'ı denetlemesine izin verip vermeyeceğini sorar. **İzin Ver**'e tıkla.
-
-### 6. Widget'ı ekle
-
-Masaüstüne sağ tıkla ve **Widget'ları Düzenle**'yi seç. **Spotify** ara ve bir boyutu masaüstüne sürükle.
+Kendi DMG dosyanı oluşturmak için `scripts/make-dmg.sh` betiğini çalıştır. Betik deponun temiz bir kopyasından derler ve `dist/SpotifyWidget-<sürüm>.dmg` dosyasını oluşturur.
 
 ## Kaldırma
 
@@ -103,7 +112,7 @@ Masaüstüne sağ tıkla ve **Widget'ları Düzenle**'yi seç. **Spotify** ara v
 2. Yardımcı uygulamayı kapat ve sil:
    ```sh
    pkill -x "Spotify Widget"
-   rm -rf ~/Applications/"Spotify Widget.app"
+   rm -rf /Applications/"Spotify Widget.app" ~/Applications/"Spotify Widget.app"
    ```
 3. Hâlâ listede görünüyorsa *Spotify Widget*'ı Sistem Ayarları → Genel → Giriş Öğeleri'nden kaldır.
 
@@ -164,6 +173,7 @@ Configs/                  Derleme ayarları
 Shared/                   Yardımcı uygulama ve widget'ın ortak kodu
 SpotifyWidget/            Yardımcı uygulama
 SpotifyWidgetExtension/   Widget eklentisi
+scripts/                  DMG paketleme
 Tests/                    Birim testleri
 docs/images/              README görselleri
 ```
@@ -204,8 +214,8 @@ Spotify masaüstü uygulamasında bir şarkı başlat. Widget yine güncellenmiy
 İzni sıfırla ve uygulamayı yeniden aç:
 
 ```sh
-tccutil reset AppleEvents <bundle-onekin>.spotifyhelper
-open ~/Applications/"Spotify Widget.app"
+tccutil reset AppleEvents "$(osascript -e 'id of app "Spotify Widget"')"
+open -a "Spotify Widget"
 ```
 </details>
 
