@@ -65,8 +65,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				AppDelegate.swift,
-				AppIcon.icns,
-				Assets.car,
 				Info.plist,
 				InfoPlist.xcstrings,
 				SpotifyController.swift,
