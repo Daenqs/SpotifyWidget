@@ -2,13 +2,13 @@
 
 # Spotify Widget
 
-Spotify masaüstü uygulaması için yerel bir macOS widget'ı.<br>
-Albüm kapağı, canlı ilerleme çubuğu ve oynatma kontrolleri masaüstünde ve Bildirim Merkezi'nde.
+Spotify masaüstü uygulaması için yerel bir macOS widget'ı. Albüm kapağını, canlı ilerlemeyi<br>
+ve oynatma kontrollerini masaüstüne ve Bildirim Merkezi'ne getirir.
 
-[![Sürüm](https://img.shields.io/badge/s%C3%BCr%C3%BCm-1.1-1DB954?style=flat-square)](#kurulum)
-[![macOS](https://img.shields.io/badge/macOS-14%2B-black?style=flat-square)](#gereksinimler)
-[![Diller](https://img.shields.io/badge/dil-16-8A2BE2?style=flat-square)](#diller)
-[![Lisans](https://img.shields.io/badge/lisans-MIT-lightgrey?style=flat-square)](LICENSE)
+[![Sürüm](https://img.shields.io/badge/s%C3%BCr%C3%BCm-1.1-333333?style=flat-square)](#kurulum)
+[![macOS](https://img.shields.io/badge/macOS-14%2B-333333?style=flat-square)](#gereksinimler)
+[![Diller](https://img.shields.io/badge/dil-16-333333?style=flat-square)](#diller)
+[![Lisans](https://img.shields.io/badge/lisans-MIT-333333?style=flat-square)](LICENSE)
 
 [English](README.md) · **Türkçe**
 
@@ -20,14 +20,11 @@ Albüm kapağı, canlı ilerleme çubuğu ve oynatma kontrolleri masaüstünde v
 
 ## Özellikler
 
-- **Üç boyut.** Küçük, orta ve büyük; masaüstünde ya da Bildirim Merkezi'nde.
-- **Oynatma kontrolleri.** Spotify'a geçmeden oynat, duraklat, önceki ve sonraki şarkı.
-- **Canlı ilerleme.** Şarkı çaldıkça çubuk ve geçen süre ilerler.
-- **Tıklayarak sarma.** Çubukta tıkladığın yere atlar.
-- **Yerel görünüm.** Bulanık kapak arka planı ve sistem yazı tipleri. Albüm kapağı hiçbir zaman kırpılmaz.
-- **16 dil.** Mac'inin diline kendiliğinden uyar.
-- **Hafif.** Sürekli sorgulama yapmaz. Yalnızca Spotify bir değişiklik bildirdiğinde çalışır.
-- **Gizli.** Spotify'ın görsel sunucularına giden kapak istekleri dışında Mac'inden hiçbir şey çıkmaz. Hesap, analiz ya da API anahtarı yok.
+Widget küçük, orta ve büyük boyutta gelir; masaüstünde de Bildirim Merkezi'nde de çalışır. Spotify'a geçmeden şarkıyı oynatıp duraklatabilir, ileri geri atlayabilirsin. İlerleme çubuğunda bir yere tıklarsan şarkı oraya atlar. Müzik çalarken çubuk ve geçen süre ilerlemeye devam eder.
+
+Albüm kapağı kırpılmadan, kendi bulanık kopyasının üstünde ve sistem yazı tipleriyle görünür. Böylece Apple'ın kendi widget'larının yanında sırıtmaz. Yazılar Mac'inin dilini izler; 16 dil hazır gelir.
+
+Yardımcı uygulama Spotify bir değişiklik bildirene kadar hiçbir şey yapmaz, boştayken işlemci kullanmaz. Dışarı giden tek trafik Spotify'ın görsel sunucularına giden kapak istekleridir. Hesap, analiz ya da API anahtarı yok.
 
 ## Gereksinimler
 
@@ -37,12 +34,11 @@ Albüm kapağı, canlı ilerleme çubuğu ve oynatma kontrolleri masaüstünde v
 | Xcode (derlemek için) | 16 | 27.2 |
 | Spotify | Masaüstü uygulaması | 1.3.6 |
 
-- Spotify **web oynatıcısı desteklenmez**. Widget masaüstü uygulamasıyla konuşur.
-- Derlenen uygulama universal'dır (Apple silicon ve Intel). Yalnızca Apple silicon'da test edildi.
+Spotify web oynatıcısı desteklenmez; widget yalnızca masaüstü uygulamasıyla konuşur. Derlenen uygulama universal'dır (Apple silicon ve Intel), ama yalnızca Apple silicon'da test edildi.
 
 ## Kurulum
 
-Uygulamayı kaynak koddan bir kez derliyorsun. Yaklaşık iki dakika sürer; Xcode ve ücretsiz bir Apple ID gerekir. `xcodebuild` Xcode gerektiğini söylerse önce `sudo xcode-select -s /Applications/Xcode.app` komutunu çalıştır.
+Uygulamayı kaynak koddan bir kez derlemen yeterli. Yaklaşık iki dakika sürüyor; Xcode ve ücretsiz bir Apple ID lazım. `xcodebuild` Xcode gerektiğini söylerse önce `sudo xcode-select -s /Applications/Xcode.app` komutunu çalıştır.
 
 ### 1. Depoyu indir
 
@@ -66,7 +62,7 @@ cp Configs/Local.xcconfig.example Configs/Local.xcconfig
 | `DEVELOPMENT_TEAM` | Team ID'n. Xcode → Settings → Accounts → takımını seç. |
 | `BUNDLE_ID_PREFIX` | Sana özgü herhangi bir şey, ör. `com.adin` |
 
-`Local.xcconfig` git'e eklenmez, bilgilerin hiçbir commit'e girmez.
+`Local.xcconfig` git'e eklenmediği için bilgilerin commit'lere girmez.
 
 ### 3. Derle
 
@@ -88,11 +84,11 @@ Uygulamanın penceresi ve Dock simgesi yok. Arka planda çalışır ve oturum a�
 
 ### 5. İzin ver
 
-macOS, *Spotify Widget*'ın *Spotify*'ı denetlemesine izin verip vermeyeceğini sorar. **İzin Ver**'e tıkla.
+macOS, *Spotify Widget*'ın *Spotify*'ı denetlemesine izin verip vermeyeceğini sorar. İzin Ver'e tıkla.
 
 ### 6. Widget'ı ekle
 
-Masaüstüne sağ tıkla ve **Widget'ları Düzenle**'yi seç. **Spotify** ara ve bir boyutu masaüstüne sürükle.
+Masaüstüne sağ tıkla, Widget'ları Düzenle'yi seç, Spotify'ı ara ve bir boyutu masaüstüne sürükle.
 
 ## Kaldırma
 
@@ -106,26 +102,66 @@ Masaüstüne sağ tıkla ve **Widget'ları Düzenle**'yi seç. **Spotify** ara v
 
 ## Nasıl çalışır
 
-Widget'lar sandbox içinde çalışır ve diğer uygulamaları denetleyemez. Bu yüzden proje iki parçadan oluşur.
+Widget'lar sandbox içinde çalışır ve başka uygulamaları denetleyemez. Bu yüzden proje iki parçadan oluşuyor: Spotify ile konuşan küçük bir yardımcı uygulama ve widget'ın kendisi. İkisi verileri ortak bir App Group klasörü üzerinden paylaşır.
 
 ```mermaid
+%%{init: {'theme': 'neutral'}}%%
 flowchart LR
-    S[Spotify] -- oynatma bildirimi --> H[Yardımcı uygulama]
-    H -- şarkı bilgisi ve kapak --> G[(Ortak App Group)]
-    G --> W[Widget]
-    W -- butona basma --> H
-    H -- AppleScript --> S
+    subgraph spotify ["Spotify masaüstü uygulaması"]
+        SP["Oynatıcı"]
+    end
+    subgraph helper ["Yardımcı uygulama (SpotifyWidget/)"]
+        N["Bildirim dinleyici"]
+        C["SpotifyController"]
+        A["Kapak indirme<br/>ve bulanıklaştırma"]
+    end
+    subgraph group ["Ortak App Group"]
+        J[("now-playing.json")]
+        I[("artwork.jpg<br/>background.jpg")]
+    end
+    subgraph widget ["Widget eklentisi (SpotifyWidgetExtension/)"]
+        P["Zaman çizelgesi sağlayıcı"]
+        V["Görünümler"]
+        B["App Intent'ler<br/>butonlar ve sarma"]
+    end
+    SP -- "PlaybackStateChanged" --> N --> C
+    C --> J
+    C --> A --> I
+    C -. "reloadAllTimelines()" .-> P
+    J --> P
+    I --> P
+    P --> V
+    V --> B
+    B -- "spotifywidget.* bildirimi" --> C
+    C -- "AppleScript" --> SP
 ```
 
-**Yardımcı uygulama** (`SpotifyWidget/`)
-- Spotify'ın `com.spotify.client.PlaybackStateChanged` bildirimini dinler. Şarkı bilgisi doğrudan bildirimden okunur.
-- AppleScript'i yalnızca oynatma komutları için ve şarkı değişince kapak adresini almak için kullanır.
-- Her kapağı bir kez indirir, önbelleğe alır ve küçük bulanık arka planı önceden hazırlar. Widget'ın hiçbir şeyi bulanıklaştırması gerekmez.
+Aynı akış, şarkı değiştiğinde ve bir butona bastığında olanların sırasıyla:
 
-**Widget eklentisi** (`SpotifyWidgetExtension/`)
-- Ortak durumu okur ve çizer.
-- İlerleme çubuğu önceden hesaplanmış zaman çizelgesi kayıtlarıyla ilerler. Bunlar widget yenileme kotasından düşmez.
-- Butonlar, yardımcı uygulamaya mesaj gönderen App Intent'lerdir.
+```mermaid
+%%{init: {'theme': 'neutral'}}%%
+sequenceDiagram
+    participant S as Spotify
+    participant H as Yardımcı uygulama
+    participant G as App Group
+    participant W as Widget
+    S->>H: PlaybackStateChanged (şarkı, sanatçı, konum)
+    opt Kapak önbellekte yok
+        H->>S: AppleScript: artwork url
+        H->>H: İndir, bulanıklaştır, önbelleğe al
+    end
+    H->>G: Durumu ve görselleri yaz
+    H->>W: reloadAllTimelines()
+    W->>G: Durumu ve görselleri oku
+    Note over W: Sistem zamanlayıcılı ilerleme çubuğunu canlandırır
+    W->>H: Butona basma (distributed notification)
+    H->>S: AppleScript komutu
+    S-->>H: PlaybackStateChanged
+```
+
+Yardımcı uygulama (`SpotifyWidget/`) Spotify'ın `com.spotify.client.PlaybackStateChanged` bildirimini dinler ve şarkı bilgisini doğrudan bildirimden okur. AppleScript'i yalnızca oynatma komutları için ve şarkı değişince kapak adresini almak için kullanır. Her kapak bir kez indirilip önbelleğe alınır; yardımcı uygulama ondan küçük bulanık bir arka plan da hazırlar, böylece widget hiçbir şeyi bulanıklaştırmak zorunda kalmaz. İndirme başarısız olursa (örneğin oturum açtıktan hemen sonra ağ henüz hazır değilse) şarkı kapaksız gösterilir ve indirme bir kez daha denenir. Yardımcı uygulama App Nap'i de kapatır; aksi halde macOS oturum açılışında güncellemeleri bir dakikadan uzun bekletiyordu.
+
+Widget eklentisi (`SpotifyWidgetExtension/`) ortak durumu okur ve çizer. İlerleme çubuğu, sistemin kendisinin canlandırdığı zamanlayıcılı bir `ProgressView`. Bu sayede her değişiklik tek bir zaman çizelgesi kaydı üretir ve widget yaklaşık 100 ms'de yeniden çizilir. Butonlar, yardımcı uygulamaya bildirim gönderen App Intent'lerdir.
 
 ### Performans
 
@@ -136,6 +172,7 @@ Apple silicon Mac'te Release sürümüyle ölçüldü:
 | Spotify durumunu okuma | 1–12 ms |
 | Oynat / duraklat | yaklaşık 20 ms |
 | Sonraki şarkı, kapak indirme dahil | yaklaşık 110 ms |
+| Değişiklik sonrası widget'ın yeniden çizilmesi | yaklaşık 100 ms |
 | Boştayken CPU | %0 |
 | Bellek (yardımcı uygulama) | yaklaşık 26 MB |
 
@@ -186,7 +223,7 @@ Kendi uygulama ikonunu kullanmak için `SpotifyWidget/` klasörüne bir `AppIcon
 <details>
 <summary>Widget galeride görünmüyor</summary>
 
-Yardımcı uygulamanın çalıştığını `pgrep -l "Spotify Widget"` ile, uygulamanın `~/Applications` ya da `/Applications` içinde olduğunu kontrol et. Galeri eski bir ad ya da ikon gösteriyorsa oturumu kapatıp aç. Galeri uygulama bilgilerini önbellekte tutar.
+Yardımcı uygulamanın çalıştığını `pgrep -l "Spotify Widget"` ile, uygulamanın `~/Applications` ya da `/Applications` içinde olduğunu kontrol et. Galeri uygulama adını ve ikonunu önbellekte tutar; eski hâlini gösteriyorsa oturumu kapatıp yeniden aç.
 </details>
 
 <details>
@@ -209,7 +246,7 @@ open -a "Spotify Widget"
 <details>
 <summary>Widget griye dönüyor</summary>
 
-macOS, önünde bir pencere varken masaüstü widget'larını soluklaştırır. Masaüstünde boş bir yere tıkla, renkler geri gelir.
+macOS, önünde bir pencere varken masaüstü widget'larını soluklaştırır. Masaüstünde boş bir yere tıklarsan renkler geri gelir.
 </details>
 
 ## Lisans

@@ -5,6 +5,10 @@ import ServiceManagement
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let spotify = SpotifyController()
+    // A windowless agent gets App Nap, which right after login can hold widget updates back for over a minute.
+    private let activity = ProcessInfo.processInfo.beginActivity(
+        options: .userInitiatedAllowingIdleSystemSleep,
+        reason: "Forwards Spotify playback changes to the widget")
 
     static func main() {
         let app = NSApplication.shared

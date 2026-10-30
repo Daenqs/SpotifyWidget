@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ProgressBar: View {
     let state: NowPlaying
-    let date: Date
 
     private let segments = 20
 
@@ -11,22 +10,16 @@ struct ProgressBar: View {
     }
 
     private var fraction: Double {
-        let elapsed = isLive ? date.timeIntervalSince(state.startDate) : state.position
-        return min(1, max(0, elapsed / max(state.duration, 1)))
+        min(1, max(0, state.position / max(state.duration, 1)))
     }
 
     var body: some View {
         VStack(spacing: 3) {
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    Capsule().fill(.quaternary)
-                    Capsule().fill(.primary).frame(width: geo.size.width * fraction)
-                }
-                .frame(height: 4)
+            bar
+                .tint(.primary)
                 .frame(maxHeight: .infinity)
                 .overlay { seekTargets }
-            }
-            .frame(height: 14)
+                .frame(height: 14)
 
             HStack(spacing: 0) {
                 elapsed.frame(maxWidth: .infinity, alignment: .leading)
@@ -34,6 +27,20 @@ struct ProgressBar: View {
             }
             .font(.caption2.monospacedDigit())
             .foregroundStyle(.secondary)
+        }
+    }
+
+    // The system animates a timer-driven bar on its own, so the timeline needs a single entry.
+    @ViewBuilder
+    private var bar: some View {
+        if isLive {
+            ProgressView(timerInterval: state.startDate...state.endDate, countsDown: false) {
+                EmptyView()
+            } currentValueLabel: {
+                EmptyView()
+            }
+        } else {
+            ProgressView(value: fraction)
         }
     }
 

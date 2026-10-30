@@ -65,7 +65,7 @@ struct NowPlayingView: View {
             VStack(alignment: .leading, spacing: 6) {
                 titles(state).padding(.trailing, 24)
                 Spacer(minLength: 0)
-                ProgressBar(state: state, date: entry.date)
+                ProgressBar(state: state)
                 controls(state).frame(maxWidth: .infinity)
             }
         }
@@ -77,7 +77,7 @@ struct NowPlayingView: View {
                 .shadow(color: .black.opacity(0.35), radius: 8, y: 4)
                 .frame(maxWidth: .infinity)
             titles(state)
-            ProgressBar(state: state, date: entry.date)
+            ProgressBar(state: state)
             controls(state).frame(maxWidth: .infinity)
         }
     }

@@ -24,6 +24,7 @@ final class SpotifyController {
     private var knownArtwork: (trackID: String, url: String)?
     private var pendingArtwork: String?
     private var pendingState: NowPlaying?
+    private var failedArtwork: String?
     private var artworkCache: [String: (image: Data, background: Data?)] = [:]
     private var lastPublish = ContinuousClock.now
 
@@ -166,7 +167,7 @@ final class SpotifyController {
             let start = ContinuousClock.now
             let response = try? await session.data(from: url)
             let image = (response?.1 as? HTTPURLResponse)?.statusCode == 200 ? response?.0 : nil
-            let background = await Task.detached(priority: .utility) { image.flatMap(BackgroundRenderer.render) }.value
+            let background = await Task.detached(priority: .userInitiated) { image.flatMap(BackgroundRenderer.render) }.value
             log.debug("artwork took \(ContinuousClock.now - start, privacy: .public)")
 
             guard pendingArtwork == key, let state = pendingState else { return }
@@ -175,11 +176,20 @@ final class SpotifyController {
             if let image {
                 if artworkCache.count >= 20 { artworkCache.removeAll() }
                 artworkCache[key] = (image, background)
+                publish(state, artwork: key)
+            } else if failedArtwork != key {
+                // Right after login the network is often not up yet: show the track now, retry the cover once.
+                failedArtwork = key
+                artworkSource = nil
+                update(state, artwork: .remove)
+                Task {
+                    try? await Task.sleep(for: .seconds(3))
+                    if artworkSource == nil { publishState() }
+                }
             } else {
                 artworkSource = key
-                SharedStore.saveArtwork(nil, background: nil)
+                update(state, artwork: .remove)
             }
-            publish(state, artwork: key)
         }
     }
 
