@@ -21,6 +21,11 @@ struct NowPlayingView: View {
                 empty
             }
         }
+        .overlay(alignment: .topTrailing) {
+            if entry.state != nil {
+                logo.padding(family == .systemLarge ? 8 : 0)
+            }
+        }
         .environment(\.colorScheme, entry.background == nil ? colorScheme : .dark)
         .containerBackground(for: .widget) { background }
         .widgetURL(URL(string: "spotify:"))
@@ -40,11 +45,7 @@ struct NowPlayingView: View {
 
     private func small(_ state: NowPlaying) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(alignment: .top) {
-                artwork(fill: false).frame(width: 64, height: 64)
-                Spacer()
-                logo
-            }
+            artwork(fill: false).frame(width: 64, height: 64)
             Spacer(minLength: 8)
             HStack(alignment: .bottom) {
                 titles(state)
@@ -62,7 +63,7 @@ struct NowPlayingView: View {
         HStack(spacing: 14) {
             artwork(fill: false)
             VStack(alignment: .leading, spacing: 6) {
-                header(state)
+                titles(state).padding(.trailing, 24)
                 Spacer(minLength: 0)
                 ProgressBar(state: state, date: entry.date)
                 controls(state).frame(maxWidth: .infinity)
@@ -73,7 +74,7 @@ struct NowPlayingView: View {
     private func large(_ state: NowPlaying) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             artwork(fill: true)
-            header(state)
+            titles(state)
             ProgressBar(state: state, date: entry.date)
             controls(state).frame(maxWidth: .infinity)
         }
@@ -96,6 +97,7 @@ struct NowPlayingView: View {
         if let image = Self.logo {
             CoverImage(image: image, contentMode: .fit)
                 .frame(width: 18, height: 18)
+                .shadow(color: .black.opacity(0.3), radius: 2, y: 1)
         }
     }
 
@@ -115,14 +117,6 @@ struct NowPlayingView: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: fill ? 12 : 8))
-    }
-
-    private func header(_ state: NowPlaying) -> some View {
-        HStack(alignment: .top, spacing: 6) {
-            titles(state)
-            Spacer(minLength: 0)
-            logo
-        }
     }
 
     private func titles(_ state: NowPlaying) -> some View {
