@@ -14,7 +14,7 @@ struct NextTrackIntent: AppIntent {
     static let title: LocalizedStringResource = "Sonraki Şarkı"
 
     func perform() async throws -> some IntentResult {
-        Command.next.post()
+        await Command.next.postAndWaitForUpdate()
         return .result()
     }
 }
@@ -23,8 +23,20 @@ struct PreviousTrackIntent: AppIntent {
     static let title: LocalizedStringResource = "Önceki Şarkı"
 
     func perform() async throws -> some IntentResult {
-        Command.previous.post()
+        await Command.previous.postAndWaitForUpdate()
         return .result()
+    }
+}
+
+private extension Command {
+    func postAndWaitForUpdate(timeout: Duration = .seconds(2)) async {
+        let before = SharedStore.load()?.updatedAt
+        post()
+        let deadline = ContinuousClock.now + timeout
+        while ContinuousClock.now < deadline {
+            try? await Task.sleep(for: .milliseconds(50))
+            if SharedStore.load()?.updatedAt != before { return }
+        }
     }
 }
 

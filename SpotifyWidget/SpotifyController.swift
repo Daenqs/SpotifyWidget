@@ -4,6 +4,8 @@ import WidgetKit
 final class SpotifyController {
     private var published: NowPlaying?
     private var artworkSource: String?
+    private var pendingArtwork: String?
+    private var artworkCache: [String: (image: Data, background: Data?)] = [:]
 
     private static let stateScript = compiled("""
         if application id "com.spotify.client" is running then
@@ -43,6 +45,7 @@ final class SpotifyController {
 
         guard error == nil, result.numberOfItems == 7 else {
             artworkSource = nil
+            pendingArtwork = nil
             update(nil, artwork: .remove)
             return
         }
@@ -57,18 +60,36 @@ final class SpotifyController {
             updatedAt: .now
         )
         let artwork = text(7)
-        guard artwork != artworkSource, let url = URL(string: artwork) else {
+        if artwork == artworkSource {
             update(state, artwork: .unchanged)
-            return
+        } else if let cached = artworkCache[artwork] {
+            artworkSource = artwork
+            update(state, artwork: .replace(cached.image, background: cached.background))
+        } else if !artwork.isEmpty, let url = URL(string: artwork) {
+            guard artwork != pendingArtwork else { return }
+            pendingArtwork = artwork
+            download(url, key: artwork)
+        } else {
+            artworkSource = artwork
+            update(state, artwork: .remove)
         }
-        artworkSource = artwork
+    }
+
+    private func download(_ url: URL, key: String) {
         URLSession.shared.dataTask(with: url) { data, response, _ in
             let image = (response as? HTTPURLResponse)?.statusCode == 200 ? data : nil
             let background = image.flatMap(BackgroundRenderer.render)
             DispatchQueue.main.async {
-                guard self.artworkSource == artwork else { return }
-                if image == nil { self.artworkSource = nil }
-                self.update(state, artwork: image.map { .replace($0, background: background) } ?? .remove)
+                guard self.pendingArtwork == key else { return }
+                self.pendingArtwork = nil
+                if let image {
+                    if self.artworkCache.count >= 20 { self.artworkCache.removeAll() }
+                    self.artworkCache[key] = (image, background)
+                } else {
+                    self.artworkSource = key
+                    SharedStore.saveArtwork(nil, background: nil)
+                }
+                self.publishState()
             }
         }.resume()
     }
