@@ -3,6 +3,12 @@
   "strings": {
     "Album": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Albom"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -33,10 +39,22 @@
             "value": "アルバム"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Альбом"
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "앨범"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Альбом"
           }
         },
         "pt-BR": {
@@ -51,10 +69,22 @@
             "value": "Альбом"
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Albom"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Albüm"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Albom"
           }
         },
         "zh-Hans": {
@@ -67,6 +97,12 @@
     },
     "Artist": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İfaçı"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -97,10 +133,22 @@
             "value": "アーティスト"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Орындаушы"
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "아티스트"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аткаруучу"
           }
         },
         "pt-BR": {
@@ -115,10 +163,22 @@
             "value": "Исполнитель"
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ýerine ýetiriji"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Sanatçı"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ijrochi"
           }
         },
         "zh-Hans": {
@@ -131,6 +191,12 @@
     },
     "Next Track": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Növbəti mahnı"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -161,10 +227,22 @@
             "value": "次の曲"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Келесі ән"
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "다음 곡"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кийинки ыр"
           }
         },
         "pt-BR": {
@@ -179,10 +257,22 @@
             "value": "Следующий трек"
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indiki aýdym"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Sonraki Şarkı"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keyingi qo‘shiq"
           }
         },
         "zh-Hans": {
@@ -195,6 +285,12 @@
     },
     "Nothing playing on Spotify": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify-da heç nə səslənmir"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -225,10 +321,22 @@
             "value": "Spotifyで再生中の曲はありません"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify-да ештеңе ойнатылмай тұр"
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "Spotify에서 재생 중인 항목 없음"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify'да эч нерсе ойнотулбай жатат"
           }
         },
         "pt-BR": {
@@ -243,10 +351,22 @@
             "value": "В Spotify ничего не играет"
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify-da hiç zat çalynmaýar"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Spotify'da çalan bir şey yok"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotify’da hech narsa ijro etilmayapti"
           }
         },
         "zh-Hans": {
@@ -259,6 +379,12 @@
     },
     "Now playing and playback controls.": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Səslənən mahnı və oxutma idarəetməsi."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -289,10 +415,22 @@
             "value": "再生中の曲と再生コントロール。"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қазір ойнап тұрған ән және ойнатуды басқару."
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "현재 재생 중인 곡과 재생 컨트롤."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Азыр ойноп жаткан ыр жана ойнотууну башкаруу."
           }
         },
         "pt-BR": {
@@ -307,10 +445,22 @@
             "value": "Текущий трек и управление воспроизведением."
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Häzir çalynýan aýdym we dolandyryş düwmeleri."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Çalan şarkı ve oynatma kontrolleri."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hozir ijro etilayotgan qo‘shiq va ijro boshqaruvi."
           }
         },
         "zh-Hans": {
@@ -323,6 +473,12 @@
     },
     "Play / Pause": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oxut / Pauza"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -353,10 +509,22 @@
             "value": "再生 / 一時停止"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ойнату / Кідірту"
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "재생 / 일시정지"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ойнотуу / Тындыруу"
           }
         },
         "pt-BR": {
@@ -371,10 +539,22 @@
             "value": "Воспроизвести / Пауза"
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çal / Arakesme"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Oynat / Duraklat"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ijro / Pauza"
           }
         },
         "zh-Hans": {
@@ -387,6 +567,12 @@
     },
     "Position": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mövqe"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -417,10 +603,22 @@
             "value": "位置"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Орын"
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "위치"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Орун"
           }
         },
         "pt-BR": {
@@ -435,10 +633,22 @@
             "value": "Позиция"
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orun"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Konum"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pozitsiya"
           }
         },
         "zh-Hans": {
@@ -451,6 +661,12 @@
     },
     "Previous Track": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əvvəlki mahnı"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -481,10 +697,22 @@
             "value": "前の曲"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Алдыңғы ән"
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "이전 곡"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мурунку ыр"
           }
         },
         "pt-BR": {
@@ -499,10 +727,22 @@
             "value": "Предыдущий трек"
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öňki aýdym"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Önceki Şarkı"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oldingi qo‘shiq"
           }
         },
         "zh-Hans": {
@@ -515,6 +755,12 @@
     },
     "Seek": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mövqeyə keç"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -545,10 +791,22 @@
             "value": "シーク"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Орынға өту"
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "탐색"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Орунга өтүү"
           }
         },
         "pt-BR": {
@@ -563,10 +821,22 @@
             "value": "Перемотать"
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ýere geç"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Şarkıda Atla"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Joyga o‘tish"
           }
         },
         "zh-Hans": {
@@ -579,6 +849,12 @@
     },
     "Song Title": {
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mahnının adı"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -609,10 +885,22 @@
             "value": "曲名"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ән атауы"
+          }
+        },
         "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "곡 제목"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ырдын аталышы"
           }
         },
         "pt-BR": {
@@ -627,10 +915,22 @@
             "value": "Название"
           }
         },
+        "tk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aýdymyň ady"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Şarkı Adı"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qo‘shiq nomi"
           }
         },
         "zh-Hans": {

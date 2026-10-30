@@ -178,6 +178,11 @@
 			knownRegions = (
 				en,
 				tr,
+				az,
+				kk,
+				ky,
+				uz,
+				tk,
 				de,
 				es,
 				fr,
